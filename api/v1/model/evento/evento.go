@@ -9,9 +9,9 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/JoaoEymard/ingressou/api/utils/database/postgres"
-	"github.com/JoaoEymard/ingressou/api/v1/model/evento/atributo"
-	"github.com/JoaoEymard/ingressou/api/v1/utils"
+	"github.com/CheYpe/Ingressou/api/utils/database/postgres"
+	"github.com/CheYpe/Ingressou/api/v1/model/evento/atributo"
+	"github.com/CheYpe/Ingressou/api/v1/utils"
 )
 
 const (

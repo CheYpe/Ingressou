@@ -6,7 +6,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/JoaoEymard/ingressou/api/utils/logger"
+	"github.com/CheYpe/Ingressou/api/utils/logger"
 )
 
 type Settings struct {

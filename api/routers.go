@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/JoaoEymard/ingressou/api/v1"
+	"github.com/CheYpe/Ingressou/api/v1"
 	"github.com/gorilla/mux"
 )
 

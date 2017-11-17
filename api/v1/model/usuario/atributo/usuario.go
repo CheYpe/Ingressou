@@ -1,7 +1,7 @@
 package atributo
 
 import (
-	"github.com/JoaoEymard/ingressou/api/v1/utils"
+	"github.com/CheYpe/Ingressou/api/v1/utils"
 )
 
 var (
@@ -19,7 +19,7 @@ func ValidValues(params map[string]interface{}) error {
 		valid = map[string]func(interface{}) error{
 			"nome":            nome,
 			"senha":           senha,
-			"ativo":           ativo,
+			"status_email":    statusEmail,
 			"cpf":             cpf,
 			"data_nascimento": dataNascimento,
 			"sexo":            sexo,
@@ -81,11 +81,11 @@ func senha(value interface{}) error {
 	return nil
 }
 
-func ativo(value interface{}) error {
+func statusEmail(value interface{}) error {
 
 	_, valueType := value.(bool)
 	if !valueType {
-		return utils.ValueInvalidos("ativo", "booleano")
+		return utils.ValueInvalidos("status_email", "booleano")
 	}
 
 	return nil

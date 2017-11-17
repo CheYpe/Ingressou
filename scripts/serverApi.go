@@ -9,10 +9,10 @@ import (
 
 	"github.com/gorilla/handlers"
 
-	"github.com/JoaoEymard/ingressou/api"
-	"github.com/JoaoEymard/ingressou/api/utils/database/postgres"
-	"github.com/JoaoEymard/ingressou/api/utils/logger"
-	"github.com/JoaoEymard/ingressou/api/utils/settings"
+	"github.com/CheYpe/Ingressou/api"
+	"github.com/CheYpe/Ingressou/api/utils/database/postgres"
+	"github.com/CheYpe/Ingressou/api/utils/logger"
+	"github.com/CheYpe/Ingressou/api/utils/settings"
 	"github.com/gorilla/mux"
 )
 

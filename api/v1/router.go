@@ -3,10 +3,10 @@ package v1
 import (
 	"net/http"
 
-	ctrlAuth "github.com/JoaoEymard/ingressou/api/v1/controllers/auth"
-	"github.com/JoaoEymard/ingressou/api/v1/controllers/contato"
-	"github.com/JoaoEymard/ingressou/api/v1/controllers/evento"
-	"github.com/JoaoEymard/ingressou/api/v1/controllers/usuario"
+	ctrlAuth "github.com/CheYpe/Ingressou/api/v1/controllers/auth"
+	"github.com/CheYpe/Ingressou/api/v1/controllers/contato"
+	"github.com/CheYpe/Ingressou/api/v1/controllers/evento"
+	"github.com/CheYpe/Ingressou/api/v1/controllers/usuario"
 	"github.com/gorilla/mux"
 )
 

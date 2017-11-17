@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/JoaoEymard/ingressou/api/v1/utils"
+	"github.com/CheYpe/Ingressou/api/v1/utils"
 	// _ Importanto apenas o init
 	_ "github.com/lib/pq"
 )

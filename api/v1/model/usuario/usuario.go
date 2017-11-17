@@ -8,9 +8,9 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/JoaoEymard/ingressou/api/utils/database/postgres"
-	"github.com/JoaoEymard/ingressou/api/v1/model/usuario/atributo"
-	"github.com/JoaoEymard/ingressou/api/v1/utils"
+	"github.com/CheYpe/Ingressou/api/utils/database/postgres"
+	"github.com/CheYpe/Ingressou/api/v1/model/usuario/atributo"
+	"github.com/CheYpe/Ingressou/api/v1/utils"
 )
 
 const (
@@ -42,7 +42,7 @@ func Insert(contentBody io.ReadCloser) ([]byte, int, error) {
 	values := map[string]interface{}{
 		"nome":            contentJSON["nome"],
 		"senha":           contentJSON["senha"],
-		"ativo":           contentJSON["ativo"],
+		"status_email":    contentJSON["status_email"],
 		"cpf":             contentJSON["cpf"],
 		"data_nascimento": contentJSON["data_nascimento"],
 		"sexo":            contentJSON["sexo"],
@@ -89,7 +89,7 @@ func Find(params url.Values) ([]byte, int, error) {
 	}
 
 	// Consulta para coletar os registro
-	sql := fmt.Sprintf(`SELECT TIUSUARIO.id AS id, TIUSUARIO.nome, TIUSUARIO.ultimo_acesso, TIUSUARIO.ativo, TIUSUARIO.cpf, TIUSUARIO.data_nascimento, TIUSUARIO.sexo, TIUSUARIO.nivel,
+	sql := fmt.Sprintf(`SELECT TIUSUARIO.id AS id, TIUSUARIO.nome, TIUSUARIO.ultimo_acesso, TIUSUARIO.status_email, TIUSUARIO.cpf, TIUSUARIO.data_nascimento, TIUSUARIO.sexo, TIUSUARIO.nivel,
 	(
 		SELECT array_to_json (array_agg (row_to_json(dados_contatos.*) ) )
 		FROM (
@@ -170,7 +170,7 @@ func Update(contentBody io.ReadCloser, params url.Values) ([]byte, int, error) {
 	values := map[string]interface{}{
 		"nome":            contentJSON["nome"],
 		"senha":           contentJSON["senha"],
-		"ativo":           contentJSON["ativo"],
+		"status_email":    contentJSON["statusEmail"],
 		"cpf":             contentJSON["cpf"],
 		"data_nascimento": contentJSON["data_nascimento"],
 		"sexo":            contentJSON["sexo"],

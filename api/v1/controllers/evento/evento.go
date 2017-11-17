@@ -6,9 +6,9 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/JoaoEymard/ingressou/api/utils/logger"
-	"github.com/JoaoEymard/ingressou/api/v1/model/evento"
-	"github.com/JoaoEymard/ingressou/api/v1/utils"
+	"github.com/CheYpe/Ingressou/api/utils/logger"
+	"github.com/CheYpe/Ingressou/api/v1/model/evento"
+	"github.com/CheYpe/Ingressou/api/v1/utils"
 	"github.com/gorilla/mux"
 )
 
