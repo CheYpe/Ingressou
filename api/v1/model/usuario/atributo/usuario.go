@@ -7,8 +7,8 @@ import (
 var (
 	// Filtros lista de filtro para consulta
 	Filtros = map[string]string{
-		"usuarioID": "USUARIO.id = %v",
-		"nome":      "USUARIO.nome ILIKE '%%'|| '%v' ||'%%'",
+		"usuarioID": "TIUSUARIO.id = %v",
+		"nome":      "TIUSUARIO.nome ILIKE '%%'|| '%v' ||'%%'",
 	}
 )
 
