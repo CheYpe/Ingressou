@@ -22,6 +22,7 @@ type Settings struct {
 
 type Connection struct {
 	Host        string `json:"host"`
+	Port        string `json:"Port"`
 	User        string `json:"user"`
 	Pass        string `json:"pass"`
 	Database    string `json:"database"`

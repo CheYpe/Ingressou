@@ -23,7 +23,7 @@ func Open() error {
 
 	mutex.Lock()
 	criptPass := settings.GetSettings().Database.ConnectionRw.Pass
-	postgres, err = sql.Open("postgres", "host="+settings.GetSettings().Database.ConnectionRw.Host+" user="+settings.GetSettings().Database.ConnectionRw.User+" password="+string(criptPass[0:2])+string(criptPass[len(criptPass)-2:])+" dbname="+settings.GetSettings().Database.ConnectionRw.Database+" sslmode=disable")
+	postgres, err = sql.Open("postgres", "host="+settings.GetSettings().Database.ConnectionRw.Host+" port="+settings.GetSettings().Database.ConnectionRw.Port+" user="+settings.GetSettings().Database.ConnectionRw.User+" password="+string(criptPass[0:2])+string(criptPass[len(criptPass)-2:])+" dbname="+settings.GetSettings().Database.ConnectionRw.Database+" sslmode=disable")
 	mutex.Unlock()
 	if err != nil {
 		return err
