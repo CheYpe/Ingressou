@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 
 	"github.com/CheYpe/Ingressou/api/utils/database/postgres"
 	"github.com/CheYpe/Ingressou/api/v1/model/evento/atributo"
@@ -173,9 +172,6 @@ func ListarEventos(params url.Values) ([]byte, int, error) {
 	if rows == nil {
 		return nil, http.StatusNotFound, utils.Errors["NOT_FOUND"]
 	}
-
-	fmt.Printf("%v\n", rows[0]["data_periodo"].(time.Time).Format("2006_01_02_15_04_05"))
-	fmt.Printf("%v\n", rows[1]["data_periodo"].(time.Time).Format("2006_01_02_15_04_05"))
 
 	// Monta a estrutura de retorno
 	dados := map[string]interface{}{
