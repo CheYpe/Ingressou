@@ -17,6 +17,38 @@ var mask = (function(my) {
     }
   }
 
+  my.formatDate = function (dateObject) {
+    var d = new Date(dateObject);
+    var day = d.getDate();
+    var month = d.getMonth() + 1;
+    var year = d.getFullYear();
+    if (day < 10) {
+      day = "0" + day;
+    }
+    if (month < 10) {
+      month = "0" + month;
+    }
+    var date = day + "/" + month + "/" + year;
+
+    return date;
+  };
+
+  my.formatDay = function (dateObject) {
+    var d = new Date(dateObject);
+    var day = d.getDate();
+    var month = d.getMonth() + 1;
+    var year = d.getFullYear();
+    if (day < 10) {
+      day = "0" + day;
+    }
+    if (month < 10) {
+      month = "0" + month;
+    }
+    var date = day + "/" + month;
+
+    return date;
+  };
+
   my.desFormatValor = function (valor) {
     valor = valor.replace('R$ ', '')
     return parseFloat(valor.replace(',','.'))

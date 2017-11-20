@@ -129,30 +129,16 @@
           </div>
 
           <div class="card-body">
-            <h1 class="mt-0 mb-3">A volta do comandante</h1>
+            <h1 id="titulo" class="mt-0 mb-3"></h1>
 
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.407806251758!2d-39.30455078573066!3d-7.307998694725622!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7a177cb202a0f5b%3A0xa9a7449de327d2d6!2sCheYpe!5e0!3m2!1spt-BR!2sbr!4v1510083941754" width="60%" height="200" frameborder="0" style="border:0" allowfullscreen class="float-right ml-3 mb-3"></iframe>
-            <p class="text-justify">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-            <p class="text-justify">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+            <iframe id="mapa" src="" width="60%" height="200" frameborder="0" style="border:0" allowfullscreen class="float-right ml-3 mb-3"></iframe>
+            <div id="descricao"></div>
 
-            <hr class="my-4">
+            <hr class="my-4" style="clear: both">
 
             <h3>Periodo do evento:</h3>
             <div class="slide-date-ingressos mb-3">
-              <ul>
-                <li class="p-2">
-                  <span class="d-block data">07/12</span>
-                  <span class="d-block semana">seg</span>
-                </li>
-                <li class="p-2">
-                  <span class="d-block data">08/12</span>
-                  <span class="d-block semana">ter</span>
-                </li>
-              </ul>
+              <ul id="listAbaData"></ul>
               <button type="button" name="button" class="prev">
                 <span class="mdi mdi-chevron-left mdi-24px"></span>
               </button>
@@ -162,17 +148,7 @@
             </div>
             <div class="box-tipo-ingressos">
               <form id="formTiposIngressos">
-                <ul class="m-0 p-0">
-                  <li>
-                    <div class="row">
-                      <div class="col-lg-5">
-                        <h5>Atrações:</h5>
-                        <p class="font-120">Aviões do forró, Mani e banda e arreios do forró</p>
-                      </div>
-                      <div class="col-lg-7 qtdIngressos"></div>
-                    </div>
-                  </li>
-                </ul>
+                <ul id="listDetalhesIngresso" class='m-0 p-0'></ul>
               </form>
             </div>
 
@@ -264,30 +240,36 @@
   $(function () {
 
     var $bComprar = $('button.btn-comprar')
-    var getIngressos = [{
-      id: "2131",
-      nome: "Pista",
-      data: "18/11/2017",
-      lote: "1",
-      valor: 30.00,
-      quantidade: 10
-    },{
-      id: "2132",
-      nome: "Vip",
-      data: "18/11/2017",
-      lote: "1",
-      valor: 60.90,
-      quantidade: 15
-    }]
+    var ingressos = dir.ingressos
 
-    // $.ajax({
-    //   url: hostApi+'/evento/',
-    // })
+    function getEvento() {
+      $.ajax({
+        url: hostApi+'/evento/<%= link %>',
+      }).done(function (res) {
 
-    getIngressos.forEach(function (elem) {
-      $('.qtdIngressos').append("<div class='form-group row align-items-center'><label class='col-md-6 col-form-label text-md-right'>"+elem.nome+" - "+elem.lote+"º lote<br><span class='text-success'>"+mask.formatValor(elem.valor)+"</span></label><div class='input-group col-md-6'><input type='hidden' value='"+elem.quantidade+"' class='valueMax'><button type='button' name='button' class='input-group-addon minus mdi mdi-minus-circle-outline mdi-24px'></button><input name='"+elem.id+"' type='text' class='form-control text-center' value='0' readonly><button type='button' name='button' class='input-group-addon plus mdi mdi-plus-circle-outline mdi-24px'></button></div></div>")
-      elem.quantidade = 0
-    })
+        console.log(res)
+        $("#titulo").html(res.titulo)
+        $("#descricao").html(res.descricao)
+        $("#mapa").attr('src', res.mapa)
+
+        res.periodos.forEach(function (elem) {
+          $("#listAbaData").append(dir.abaDataEvento(elem))
+          $("#listDetalhesIngresso").append(dir.detalhesIngresso(elem))
+        })
+        frame.init()
+        controleQtd()
+
+      }).fail(function (res) {
+
+        console.log("error")
+
+        setTimeout(function () {
+          getEvento()
+        }, 1000);
+
+      })
+    }
+    getEvento()
 
     $('[data-toggle="tooltip"]').tooltip()
 
@@ -312,12 +294,6 @@
         $('.box-tipo-ingressos ul .active').removeClass('active')
         $($('.box-tipo-ingressos ul li')[i]).addClass('active')
       }
-    }).init()
-
-    $bComprar.on('click', function () {
-      getIngressos.forEach(function (e) {
-        (e.quantidade > 0) ? console.log(e) : console.log('')
-      })
     })
 
     function atualizaTotal() {
@@ -339,7 +315,7 @@
       var $tr = $("#"+_obj.id)
 
       if(!$tr[0]){
-        $table.find('tbody').append("<tr id='"+_obj.id+"'><td>"+_obj.nome+"</td><td class='text-center'>"+_obj.data+"</td><td class='ingressoQtd text-center'>"+_obj.quantidade+"</td><td class='ingressoValue text-right'>"+mask.formatValor(_obj.quantidade*_obj.valor)+"</td></tr>")
+        $table.find('tbody').append("<tr id='"+_obj.id+"'><td>"+_obj.nome+"</td><td class='text-center'>"+mask.formatDate(_obj.data)+"</td><td class='ingressoQtd text-center'>"+_obj.quantidade+"</td><td class='ingressoValue text-right'>"+mask.formatValor(_obj.quantidade*_obj.valor)+"</td></tr>")
         atualizaTotal()
       }else{
         if (parseInt(_obj.quantidade) > 0) {
@@ -353,36 +329,36 @@
       }
     }
 
-    /* Escolhendo quantidade dos ingressos */
-    $('.box-tipo-ingressos .minus').on('click', function () {
-      $input = $(this).next()
-      if(parseInt($input.val()) > 0){
-        $input.val( parseInt($input.val()) - 1 )
+    function controleQtd() {
+      /* Escolhendo quantidade dos ingressos */
+      $('.qtdIngressos .minus').on('click', function () {
+        $input = $(this).next()
+        if(parseInt($input.val()) > 0){
+          $input.val( parseInt($input.val()) - 1 )
 
-        getIngressos.forEach(function (e) {
-          if (e.id === $input[0].name) {
-            e.quantidade = $input.val()
-            povoaTabela(e)
-          }
-        })
+          ingressos.forEach(function (e) {
+            if (e.id == $input[0].name) {
+              e.quantidade = $input.val()
+              povoaTabela(e)
+            }
+          })
+        }
+      })
+      $('.qtdIngressos .plus').on('click', function () {
+        $input = $(this).prev()
+        max = parseInt( $input.parent().find('.valueMax').val() )
+        if (parseInt($input.val()) < max){
+          $input.val( parseInt($input.val()) + 1 )
 
-      }
-    })
-    $('.box-tipo-ingressos .plus').on('click', function () {
-      $input = $(this).prev()
-      max = parseInt( $input.parent().find('.valueMax').val() )
-      if (parseInt($input.val()) < max){
-        $input.val( parseInt($input.val()) + 1 )
-
-        getIngressos.forEach(function (e) {
-          if (e.id === $input[0].name) {
-            e.quantidade = $input.val()
-            povoaTabela(e)
-          }
-        })
-
-      }
-    })
+          ingressos.forEach(function (e) {
+            if (e.id == $input[0].name) {
+              e.quantidade = $input.val()
+              povoaTabela(e)
+            }
+          })
+        }
+      })
+    }
 
     $('#formTiposIngressos').on("submit", function( event ) {
       event.preventDefault()
