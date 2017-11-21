@@ -14,7 +14,7 @@ var dir = (function(my) {
   }
 
   my.abaDataEvento = function (obj) {
-    return "<li class='p-2'><span class='d-block data'>"+mask.formatDay(obj.data)+"</span><span class='d-block semana'>ter</span></li>"
+    return "<li class='p-2'><span class='d-block data'>"+moment(obj.data).format('DD/MM')+"</span><span class='d-block semana text-lowercase'>"+moment(obj.data).format('ddd')+"</span></li>"
   }
 
   my.detalhesIngresso = function (obj) {

@@ -26,72 +26,7 @@
 <body class="bg-page">
   <!-- Seu site -->
 
-  <header class="text-dark">
-    <div class="container">
-      <div class="row pt-5 pb-4 pb-sm-4 pt-sm-5 align-items-center navbar navbar-expand-lg">
-        <div class="d-block d-sm-none mx-5 pb-4">
-          <img src="./images/logo.png" alt="" class="w-100">
-        </div>
-        <div class="col">
-          <ul class="navbar-nav mr-auto flex-row">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="mdi mdi-menu text-dark"></span>
-            </button>
-            <li class="nav-item">
-              <a href="#" class="mdi mdi-magnify text-dark px-2" data-toggle="collapse" data-target="#navbarSearch" aria-controls="navbarSearch"></a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-3 d-none d-sm-block">
-          <img src="./images/logo.png" alt="" class="w-100">
-        </div>
-        <div class="col">
-          <ul class="navbar-nav ml-auto flex-row-reverse">
-            <li class="nav-item d-flex align-items-center">
-              Olá, visitante <a href="#" class="mdi mdi-account-circle text-dark px-2"></a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="container d-flex justify-content-center">
-      <nav id="navbarSearch" class="collapse b">
-        <form class="form-inline">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </nav>
-    </div>
-
-    <div class="navbar navbar-expand-lg navbar-light pb-0">
-      <nav id="navbarMenu" class="collapse navbar-collapse">
-        <div class="container">
-          <ul class="navbar-nav mr-auto w-100 py-2">
-            <li class="nav-item pt-0 px-2">
-              <a class="font-normal nav-link text-uppercase text-dark" href="#">home</a>
-            </li>
-            <li class="nav-item py-0 px-2">
-              <a class="font-normal nav-link text-uppercase text-dark" href="#">meus pedidos</a>
-            </li>
-            <li class="nav-item py-0 px-2">
-              <a class="font-normal nav-link text-uppercase text-dark" href="#">informações</a>
-            </li>
-            <li class="nav-item py-0 px-2">
-              <a class="font-normal nav-link text-uppercase text-dark" href="#">ajuda</a>
-            </li>
-            <li class="nav-item py-0 px-2">
-              <a class="font-normal nav-link text-uppercase text-dark" href="#">fale conosco</a>
-            </li>
-            <li class="ml-auto nav-item py-0 px-2">
-              <a class="font-normal nav-link text-uppercase text-dark" href="#">entrar</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-  </header>
+  <header class="text-dark" include="/include/header.html"></header>
 
   <section class="container py-5 mt-5 px-4 list-home-eventos">
     <div class="row">
@@ -139,18 +74,7 @@
     </div>
   </section>
 
-  <footer>
-    <div class="container py-4">
-      <div class="row align-items-center">
-        <div class="col-sm-8 text-center text-sm-left">
-          <p class="m-0 text-light">© 2017 INGRESSOU. Todos os direitos reservados</p>
-        </div>
-        <div class="col-sm-4 text-center text-sm-right mt-3 mt-sm-0">
-          <img src="./images/logo_branca.png" alt="" height="50px">
-        </div>
-      </div>
-    </div>
-  </footer>
+  <footer include="/include/footer.html"></footer>
 
 
   <!-- JavaScript jquery -->
