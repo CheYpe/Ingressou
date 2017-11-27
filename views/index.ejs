@@ -43,36 +43,7 @@
     </div>
   </section>
 
-  <section class="pre-footer bg-dark text-light py-5">
-    <div class="container py-4">
-      <div class="row">
-        <div class="col-sm-6">
-          <h5>Como entro em contato?</h5>
-          <a href="#" class="mdi mdi-whatsapp mdi-36px text-light"></a>
-          <a href="#" class="mdi mdi-phone mdi-36px text-light"></a>
-          <a href="#" class="mdi mdi-email mdi-36px text-light"></a>
-
-          <h5 class="mt-5">Posso confiar no site?</h5>
-        </div>
-        <div class="col-sm-6 text-right">
-          <h5 class="mt-5 mt-sm-0">Como entro em contato?</h5>
-          <a href="#" class="mdi mdi-facebook-box mdi-36px text-light"></a>
-          <a href="#" class="mdi mdi-instagram mdi-36px text-light"></a>
-          <a href="#" class="mdi mdi-twitter mdi-36px text-light"></a>
-
-          <h5 class="mt-5">Como pago pelos ingressos?</h5>
-        </div>
-        <div class="col-12">
-          <h5 class="mt-5">O que ainda posso ver?</h5>
-          <a href="#" class="btn btn-default text-light px-0 mr-3">Troca de voucher</a>
-          <a href="#" class="btn btn-default text-light px-0 mr-3">Cancelamento</a>
-          <a href="#" class="btn btn-default text-light px-0 mr-3">Termos de uso</a>
-          <a href="#" class="btn btn-default text-light px-0 mr-3">Privacidade e Segurança</a>
-        </div>
-
-      </div>
-    </div>
-  </section>
+  <section include="/include/preFooter.html"></section>
 
   <footer include="/include/footer.html"></footer>
 
@@ -88,6 +59,9 @@
   <script src="./javascripts/diretivas.js" charset="utf-8"></script>
 
   <script type="text/javascript">
+  window.onload = function () {
+    $('.btn-nav-home').addClass('active')
+  }
   $(function () {
     var $list
     var $boxLista = $(".list-home-eventos .row")

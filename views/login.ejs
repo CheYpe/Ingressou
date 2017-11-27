@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="">
+
+  <title><%= titulo %></title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+
+  <!-- Font -->
+  <link href="./stylesheets/open_sans.css" rel="stylesheet">
+
+  <!-- Estilo bootstrap -->
+  <link rel="stylesheet" href="./libraries/bootstrap_v4/css/bootstrap.min.css">
+  <!-- Arquivo de estilo -->
+  <link rel="stylesheet" href="./stylesheets/style.css">
+  <!-- Webfonts icons do google -->
+  <link rel="stylesheet" href="./libraries/webfont/css/materialdesignicons.min.css">
+
+  <!-- Inclusão por tag js (ex.: include='caminho') -->
+  <script src="./libraries/include/myInclude.js" charset="utf-8"></script>
+</head>
+<body class="bg-page">
+
+  <section class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-10 col-md-6 text-center">
+        <img src="/images/logo_branca.png" alt="" class="img-fluid w-50 mt-5 pt-4">
+        <div class="card card-secondary mt-4">
+          <form class="card-body" action="index.html" method="post">
+            <input type="text" name="" value="" class="form-control form-control-lg border-secondary form-group" placeholder="CPF">
+            <input type="text" name="" value="" class="form-control form-control-lg border-secondary form-group" placeholder="Data de nascimento">
+            <button type="button" name="button" class="btn bg-write text-danger px-0 float-left d-none d-lg-block">Esqueci minha senha!</button>
+            <button type="submit" name="button" class="btn btn-secondary px-5 float-right">Entrar</button>
+          </form>
+        </div>
+        <button type="button" name="button" class="btn text-write bg-transparent px-5 m-auto d-block d-lg-none">Esqueci minha senha!</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- JavaScript jquery -->
+  <script src="./libraries/jquery/jquery-3.1.1.min.js" charset="utf-8"></script>
+  <!-- JavaScript popper -->
+  <script src="./libraries/bootstrap_v4/js/popper.min.js" charset="utf-8"></script>
+  <!-- JavaScript bootstrap -->
+  <script src="./libraries/bootstrap_v4/js/bootstrap.min.js" charset="utf-8"></script>
+
+  <script src="./javascripts/root.js" charset="utf-8"></script>
+  <script src="./javascripts/diretivas.js" charset="utf-8"></script>
+
+  <script type="text/javascript">
+  // $(function () {
+  //   $.ajax({
+  //     url: hostApi+'/evento/lista',
+  //     cache: true,
+  //   }).done(function (e) {
+  //     (e.dados).forEach(function (elem) {
+  //       elem.imagem = hostApi+'/image/'+elem.imagem
+  //       $boxLista.append(dir.cardEvento(elem))
+  //     })
+  //     $list = $(".card-evento")
+  //   }).fail(function () {
+  //     console.log('Error');
+  //   })
+  // })
+  </script>
+</body>
+</html>

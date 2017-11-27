@@ -6,6 +6,7 @@
 .text-info { color: #007AC5 !important }
 .text-warning { color: #FFAC6B !important }
 .text-light { color: #FAFAFC !important }
+.text-write { color: #FFF !important }
 
 .bg-primary { background-color: #004B79 !important }
 .bg-secondary { background-color: #EA8258 !important }
@@ -13,8 +14,16 @@
 .bg-warning { background-color: #FFAC6B !important }
 .bg-dark { background-color: #404040 !important }
 .bg-light { background-color: #FAFAFC !important }
+.bg-write { background-color: #FFF !important }
+.bg-transparente { background-color: transparent !important }
 
-.bg-page { background-color: #595857 !important }
+.bg-page {
+  background-image: url(/images/background.jpg) !important;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
 /* Root */
 body {
@@ -24,6 +33,11 @@ body {
 .btn {
   font-weight: 200;
   cursor: pointer !important;
+}
+.btn.active {
+  background: none !important;
+  border: 0;
+  font-weight: bold;
 }
 .font-ligh {
   font-weight: 200;
@@ -58,35 +72,31 @@ button, input {
   background-blend-mode: multiply;
 }
 
-.list-home-eventos .card .btn-card-comprar {
-  position: absolute;
-  top: calc(50% - 18px);
-  width: calc(100% - 40px);
-
-  animation-name: fadeOutLeft;
+.list-home-eventos .card .col-comprar {
+  display: none;
+  animation-name: fadeOutRight;
   animation-duration: 0.3s;
   animation-fill-mode: both;
 }
-.list-home-eventos .card .card-descricao, .list-home-eventos .card .card-title {
+.list-home-eventos .card:focus .col-localizacao, .list-home-eventos .card:hover .col-localizacao  {
+  display: none;
+  animation-name: fadeOut;
+  animation-duration: 0.4s;
+  animation-fill-mode: both;
+}
+.list-home-eventos .card:focus .col-comprar, .list-home-eventos .card:hover .col-comprar  {
+  display: block;
   animation-name: fadeInRight;
-  animation-duration: 0.3s;
-  animation-fill-mode: both;
-}
-.list-home-eventos .card:hover .card-descricao, .list-home-eventos .card:hover .card-title, .list-home-eventos .card:focus .card-descricao, .list-home-eventos .card:focus .card-title {
-  animation-name: fadeOutLeft;
-  animation-duration: 1s;
-  animation-fill-mode: both;
-}
-.list-home-eventos .card:hover, .list-home-eventos .card:focus {
-  animation-name: pulse;
   animation-duration: 0.5s;
   animation-fill-mode: both;
 }
-.list-home-eventos .card:hover .btn-card-comprar, .list-home-eventos .card:focus .btn-card-comprar {
-  animation-name: fadeInRight;
-  animation-duration: 1s;
+
+.list-home-eventos .card:hover, .list-home-eventos .card:focus {
+  animation-name: pulse;
+  animation-duration: 0.3s;
   animation-fill-mode: both;
 }
+
 
 .btn-group-shared {
   overflow: hidden;
@@ -117,7 +127,6 @@ header {
 #navbarMenu .navbar-nav {
   border-top: 1px solid #dfdfdf
 }
-.card .card-img-top { border-bottom: 1px solid #fff }
 .card .card-body {
   font-size: 12px !important;
 }
