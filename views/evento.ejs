@@ -3,12 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="">
+  <link rel="shortcut icon" type="image/x-png" href="/images/icon.png"/>
 
   <title><%= titulo %></title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
-  <meta name="author" content="">
+  <meta name="description" content="Veja os eventos que acontecem na região do cariri e não fique sem sair de casa no final de semana.">
+  <meta name="keywords" content="ingressos,ingressou,entrada,show,balada,sites,e-commerce,venda ingressos">
+  <meta name="author" content="cheype.com.br">
+
+  <meta content="pt_br" property="og:locale">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="<%= titulo %>">
+  <meta property="og:url" content="https://ingressou.com"/>
+  <meta property="og:title" content="Ingressou" />
+  <meta property="og:description"  content="Veja os eventos que acontecem na região do cariri e não fique sem sair de casa no final de semana."/>
+  <meta property="og:image" content="images/perfil.jpg" />
+  <meta property="og:image:type" content="image/jpg">
 
   <!-- Font -->
   <link href="/stylesheets/open_sans.css" rel="stylesheet">
@@ -36,32 +45,8 @@
 
   <section class="container border-0 mb-5">
     <div class="row justify-content-center">
-      <div class="col-sm-10" style="margin-top: -250px">
+      <div class="col-sm-10 box-evento">
         <div class="card bg-white border-0 rounded-0">
-
-          <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group btn-group-shared" role="group">
-              <button type="button" class="btn bg-white text-dark">
-                <span class="mdi mdi-share-variant mdi-24px text-primary"></span>
-              </button>
-              <div class="mt-1 group-sub-menu">
-                <button type="button" class="btn bg-white">
-                  <span class="mdi mdi-facebook-box text-dark"></span>
-                </button>
-                <button type="button" class="btn bg-white">
-                  <span class="mdi mdi-whatsapp text-dark"></span>
-                </button>
-                <button type="button" class="btn bg-white">
-                  <span class="mdi mdi-email text-dark"></span>
-                </button>
-              </div>
-            </div>
-            <div class="btn-group" role="group">
-              <button type="button" class="btn btn-lg btn-success border-0 rounded-0 btn-block px-3 px-sm-5">
-                Comprar
-              </button>
-            </div>
-          </div>
 
           <div class="card-body">
             <h1 id="titulo" class="mt-0 mb-3"></h1>
@@ -71,23 +56,25 @@
 
             <hr class="my-4" style="clear: both">
 
-            <h3>Periodo do evento:</h3>
-            <div class="slide-date-ingressos mb-3">
-              <ul id="listAbaData"></ul>
-              <button type="button" name="button" class="prev">
-                <span class="mdi mdi-chevron-left mdi-24px"></span>
-              </button>
-              <button type="button" name="button" class="next">
-                <span class="mdi mdi-chevron-right mdi-24px"></span>
-              </button>
-            </div>
-            <div class="box-tipo-ingressos">
-              <form id="formTiposIngressos">
-                <ul id="listDetalhesIngresso" class='m-0 p-0'></ul>
-              </form>
+            <h3 id="periodoEvento">Periodo do evento:</h3>
+            <div class="border border-secondary bg-light pt-2 mt-3">
+              <div class="slide-date-ingressos mb-3">
+                <ul id="listAbaData"></ul>
+                <button type="button" name="button" class="prev bg-light">
+                  <span class="mdi mdi-chevron-left mdi-24px"></span>
+                </button>
+                <button type="button" name="button" class="next bg-light">
+                  <span class="mdi mdi-chevron-right mdi-24px"></span>
+                </button>
+              </div>
+              <div class="box-tipo-ingressos">
+                <form id="formTiposIngressos">
+                  <ul id="listDetalhesIngresso" class='m-0 p-0'></ul>
+                </form>
+              </div>
             </div>
 
-            <div class="resumo mt-4">
+            <!-- <div class="resumo mt-4">
               <h3>Resumo</h3>
               <table class="table table-resumo">
                 <thead>
@@ -103,7 +90,7 @@
               </table>
             </div>
 
-            <button type="button" class="btn btn-lg btn-success btn-comprar border-0 rounded-0 float-right px-3 px-sm-5" disabled>Comprar <span class="mdi mdi-chevron-right"></span></button>
+            <button type="button" class="btn btn-lg btn-success btn-comprar border-0 rounded-0 float-right px-3 px-sm-5" disabled>Comprar <span class="mdi mdi-chevron-right"></span></button> -->
 
           </div>
         </div>
@@ -139,12 +126,19 @@
   <script type="text/javascript">
   $(function () {
 
-    var $bComprar = $('button.btn-comprar')
+    // var $bComprar = $('button.btn-comprar')
     var ingressos = dir.ingressos
+
+    $('.btn-facil-comprar').on('click', function () {
+      $('html,body').animate({
+        scrollTop: $('#periodoEvento')[0].offsetTop
+      }, 300);
+    })
 
     function getEvento() {
       $.ajax({
         url: hostApi+'/evento/<%= link %>',
+        cache: 'false'
       }).done(function (res) {
 
         console.log(res)
@@ -157,7 +151,7 @@
           $("#listDetalhesIngresso").append(dir.detalhesIngresso(elem))
         })
         frame.init()
-        controleQtd()
+        // controleQtd()
 
       }).fail(function (res) {
 
@@ -170,8 +164,6 @@
       })
     }
     getEvento()
-
-    $('[data-toggle="tooltip"]').tooltip()
 
     var $wrap  = $('.slide-date-ingressos').parent()
     var slyOptions = {
@@ -196,78 +188,78 @@
       }
     })
 
-    function atualizaTotal() {
-      var $list = $('.ingressoValue')
-      var $tfoot = $('.table-resumo tfoot')
-      var _total = 0
-
-      $list.each(function () {
-        _total += mask.desFormatValor( $(this).text() )
-      })
-
-      _total ? $bComprar.removeAttr("disabled") : $bComprar.attr("disabled", true)
-      $tfoot.html("<tr><td colspan='3' class='text-right'>Total</td><td class='text-right'>"+mask.formatValor(_total)+"</td></tr>")
-    }
-
-    function povoaTabela(obj) {
-      var _obj = obj
-      var $table = $('.table-resumo')
-      var $tr = $("#"+_obj.id)
-
-      if(!$tr[0]){
-        $table.find('tbody').append("<tr id='"+_obj.id+"'><td>"+_obj.nome+"</td><td class='text-center'>"+moment(_obj.data).format('DD/MM/YYYY')+"</td><td class='ingressoQtd text-center'>"+_obj.quantidade+"</td><td class='ingressoValue text-right'>"+mask.formatValor(_obj.quantidade*_obj.valor)+"</td></tr>")
-        atualizaTotal()
-      }else{
-        if (parseInt(_obj.quantidade) > 0) {
-          $tr.find(".ingressoQtd").text(_obj.quantidade)
-          $tr.find(".ingressoValue").text(mask.formatValor(_obj.quantidade*_obj.valor))
-          atualizaTotal()
-        }else{
-          $tr.remove();
-          atualizaTotal()
-        }
-      }
-    }
-
-    function controleQtd() {
-      /* Escolhendo quantidade dos ingressos */
-      $('.qtdIngressos .minus').on('click', function () {
-        $input = $(this).next()
-        if(parseInt($input.val()) > 0){
-          $input.val( parseInt($input.val()) - 1 )
-
-          ingressos.forEach(function (e) {
-            if (e.id == $input[0].name) {
-              e.quantidade = $input.val()
-              povoaTabela(e)
-            }
-          })
-        }
-      })
-      $('.qtdIngressos .plus').on('click', function () {
-        $input = $(this).prev()
-        max = parseInt( $input.parent().find('.valueMax').val() )
-        if (parseInt($input.val()) < max){
-          $input.val( parseInt($input.val()) + 1 )
-
-          ingressos.forEach(function (e) {
-            if (e.id == $input[0].name) {
-              e.quantidade = $input.val()
-              povoaTabela(e)
-            }
-          })
-        }
-      })
-    }
-
-    $('#formTiposIngressos').on("submit", function( event ) {
-      event.preventDefault()
-      var tiposIngressos = []
-      $( this ).serialize().split('&').forEach(function(e) {
-        tiposIngressos[e.split('=')[0]] = e.split('=')[1]
-      })
-      console.log(tiposIngressos);
-    })
+    // function atualizaTotal() {
+    //   var $list = $('.ingressoValue')
+    //   var $tfoot = $('.table-resumo tfoot')
+    //   var _total = 0
+    //
+    //   $list.each(function () {
+    //     _total += mask.desFormatValor( $(this).text() )
+    //   })
+    //
+    //   _total ? $bComprar.removeAttr("disabled") : $bComprar.attr("disabled", true)
+    //   $tfoot.html("<tr><td colspan='3' class='text-right'>Total</td><td class='text-right'>"+mask.formatValor(_total)+"</td></tr>")
+    // }
+    //
+    // function povoaTabela(obj) {
+    //   var _obj = obj
+    //   var $table = $('.table-resumo')
+    //   var $tr = $("#"+_obj.id)
+    //
+    //   if(!$tr[0]){
+    //     $table.find('tbody').append("<tr id='"+_obj.id+"'><td>"+_obj.nome+"</td><td class='text-center'>"+moment(_obj.data).format('DD/MM/YYYY')+"</td><td class='ingressoQtd text-center'>"+_obj.quantidade+"</td><td class='ingressoValue text-right'>"+mask.formatValor(_obj.quantidade*_obj.valor)+"</td></tr>")
+    //     atualizaTotal()
+    //   }else{
+    //     if (parseInt(_obj.quantidade) > 0) {
+    //       $tr.find(".ingressoQtd").text(_obj.quantidade)
+    //       $tr.find(".ingressoValue").text(mask.formatValor(_obj.quantidade*_obj.valor))
+    //       atualizaTotal()
+    //     }else{
+    //       $tr.remove();
+    //       atualizaTotal()
+    //     }
+    //   }
+    // }
+    //
+    // function controleQtd() {
+    //   /* Escolhendo quantidade dos ingressos */
+    //   $('.qtdIngressos .minus').on('click', function () {
+    //     $input = $(this).next()
+    //     if(parseInt($input.val()) > 0){
+    //       $input.val( parseInt($input.val()) - 1 )
+    //
+    //       ingressos.forEach(function (e) {
+    //         if (e.id == $input[0].name) {
+    //           e.quantidade = $input.val()
+    //           povoaTabela(e)
+    //         }
+    //       })
+    //     }
+    //   })
+    //   $('.qtdIngressos .plus').on('click', function () {
+    //     $input = $(this).prev()
+    //     max = parseInt( $input.parent().find('.valueMax').val() )
+    //     if (parseInt($input.val()) < max){
+    //       $input.val( parseInt($input.val()) + 1 )
+    //
+    //       ingressos.forEach(function (e) {
+    //         if (e.id == $input[0].name) {
+    //           e.quantidade = $input.val()
+    //           povoaTabela(e)
+    //         }
+    //       })
+    //     }
+    //   })
+    // }
+    //
+    // $('#formTiposIngressos').on("submit", function( event ) {
+    //   event.preventDefault()
+    //   var tiposIngressos = []
+    //   $( this ).serialize().split('&').forEach(function(e) {
+    //     tiposIngressos[e.split('=')[0]] = e.split('=')[1]
+    //   })
+    //   console.log(tiposIngressos);
+    // })
   })
   </script>
 </body>

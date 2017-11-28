@@ -18,7 +18,7 @@ var dir = (function(my) {
   }
 
   my.detalhesIngresso = function (obj) {
-    var _res = "<li><div class='row'><div class='col-lg-5'><h5>Atrações:</h5><p class='font-120'>"+obj.atracao+"</p></div><div class='col-lg-7 qtdIngressos'>"
+    var _res = "<li><div class='row justify-content-center pt-4 pb-2 px-4'><div class='col-lg-5'><h5>Atrações:</h5><p class='font-120'>"+obj.atracao+"</p></div><div class='col-lg-7 qtdIngressos'>"
 
     if(obj.categorias){
       obj.categorias.forEach(function (elem) {

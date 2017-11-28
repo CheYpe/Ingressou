@@ -71,6 +71,9 @@ button, input {
   background-repeat: no-repeat;
   background-blend-mode: multiply;
 }
+.box-evento {
+  margin-top: -250px;
+}
 
 .list-home-eventos .card .col-comprar {
   display: none;
@@ -166,7 +169,8 @@ footer {
 
 .slide-date-ingressos {
   position: relative;
-  background-color: rgba(230, 230, 230, 0.6);
+  height: 100%;
+  background: transparent;
 }
 .slide-date-ingressos button {
   position: absolute;
@@ -175,7 +179,6 @@ footer {
   width: 40px;
   margin: 0;
   border: 0;
-  background-color: rgba(200, 200, 200, 0.6);
 }
 .slide-date-ingressos button.prev{
   left: 0;
@@ -185,15 +188,16 @@ footer {
 }
 .slide-date-ingressos ul {
   list-style: none;
-  padding: 0 41px 0;
+  padding: 0 41px;
   margin: 0;
 }
 .slide-date-ingressos ul li.active {
-  background-color: rgba(200, 200, 200, 0.6);
+  border-bottom: 1px solid #EA8258;
+  color: #EA8258;
 }
 .slide-date-ingressos ul li {
   float: left;
-  width: 80px;
+  width: 100px;
   margin: 0 1px 0 0;
   padding: 0;
   background: transparent;
@@ -213,6 +217,9 @@ footer {
 .box-tipo-ingressos ul {
   list-style: none;
   overflow: hidden;
+}
+.box-tipo-ingressos {
+  height: 100%;
 }
 .box-tipo-ingressos ul li {
   display: none;
@@ -240,7 +247,11 @@ footer {
   }
 }
 
-@media (max-width: 768px) {}
+@media (max-width: 768px) {
+  .box-evento {
+    margin-top: -90px;
+  }
+}
 
 @media (max-width: 992px) {}
 

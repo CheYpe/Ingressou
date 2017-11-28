@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { titulo: 'Ingressou - loja virtual de ingressos', page: 'home' });
+  res.render('index', { titulo: 'Ingressou - loja virtual de ingressos' });
 });
 
 /* GET login page. */
@@ -13,7 +13,7 @@ router.get('/login', function(req, res, next) {
 
 /* GET login page. */
 router.get('/contato', function(req, res, next) {
-  res.render('contato', { titulo: 'Ingressou - loja virtual de ingressos', page: 'contato' });
+  res.render('contato', { titulo: 'Contato - Ingressou' });
 });
 
 module.exports = router;

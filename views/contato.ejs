@@ -3,12 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="">
+  <link rel="shortcut icon" type="image/x-png" href="/images/icon.png"/>
 
   <title><%= titulo %></title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
-  <meta name="author" content="">
+  <meta name="description" content="Veja os eventos que acontecem na região do cariri e não fique sem sair de casa no final de semana.">
+  <meta name="keywords" content="ingressos,ingressou,entrada,show,balada,sites,e-commerce,venda ingressos">
+  <meta name="author" content="cheype.com.br">
+
+  <meta content="pt_br" property="og:locale">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="<%= titulo %>">
+  <meta property="og:url" content="https://ingressou.com"/>
+  <meta property="og:title" content="Ingressou" />
+  <meta property="og:description"  content="Veja os eventos que acontecem na região do cariri e não fique sem sair de casa no final de semana."/>
+  <meta property="og:image" content="images/perfil.jpg" />
+  <meta property="og:image:type" content="image/jpg">
 
   <!-- Font -->
   <link href="./stylesheets/open_sans.css" rel="stylesheet">
@@ -58,9 +67,11 @@
   <script src="./javascripts/root.js" charset="utf-8"></script>
 
   <script type="text/javascript">
-  window.onload = function() {
-    $(".btn-nav-contato").addClass('active')
-  }
+  $(function() {
+    window.onload = function() {
+      $(".btn-nav-contato").addClass('active')
+    }
+  })
   </script>
 </body>
 </html>
