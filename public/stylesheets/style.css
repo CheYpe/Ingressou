@@ -7,6 +7,7 @@
 .text-warning { color: #FFAC6B !important }
 .text-light { color: #FAFAFC !important }
 .text-write { color: #FFF !important }
+.text-dark { color: #404040 !important }
 
 .bg-primary { background-color: #004B79 !important }
 .bg-secondary { background-color: #EA8258 !important }
@@ -63,7 +64,6 @@ button, input {
 .list-home-eventos .card {
   text-decoration: none !important;
   outline: none !important;
-  background-color: #404040;
   overflow: hidden;
 
   background-position: center;
@@ -232,9 +232,17 @@ footer {
 /* Responsividade */
 @media (min-width: 576px) {}
 
-@media (min-width: 768px) {}
+@media (min-width: 768px) {
+  .card-columns {
+    column-count: 2;
+  }
+}
 
-@media (min-width: 992px) {}
+@media (min-width: 992px) {
+  .card-columns {
+    column-count: 3;
+  }
+}
 
 @media (min-width: 1200px) {}
 

@@ -1,60 +1,148 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" type="image/x-png" href="/images/icon.png"/>
-
-  <title><%= titulo %></title>
-  <meta name="description" content="Veja os eventos que acontecem na região do cariri e não fique sem sair de casa no final de semana.">
-  <meta name="keywords" content="ingressos,ingressou,entrada,show,balada,sites,e-commerce,venda ingressos">
-  <meta name="author" content="cheype.com.br">
-
-  <meta content="pt_br" property="og:locale">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="<%= titulo %>">
-  <meta property="og:url" content="http://ingressou.com"/>
-  <meta property="og:title" content="Ingressou" />
-  <meta property="og:description"  content="Veja os eventos que acontecem na região do cariri e não fique sem sair de casa no final de semana."/>
-  <meta property="og:image" content="./images/perfil.jpg" />
-  <meta property="og:image:type" content="./images/jpg">
-
-  <!-- Font -->
-  <link href="./stylesheets/open_sans.css" rel="stylesheet">
-
-  <!-- Estilo bootstrap -->
-  <link rel="stylesheet" href="./libraries/bootstrap_v4/css/bootstrap.min.css">
-  <!-- Arquivo de estilo -->
-  <link rel="stylesheet" href="./stylesheets/style.css">
-  <!-- Webfonts icons do google -->
-  <link rel="stylesheet" href="./libraries/webfont/css/materialdesignicons.min.css">
-
-  <!-- Inclusão por tag js (ex.: include='caminho') -->
-  <script src="./libraries/include/myInclude.js" charset="utf-8"></script>
+  <%- include('../public/include/head.html') -%>
 </head>
 <body class="bg-page">
   <!-- Seu site -->
 
-  <header class="text-dark" include="/include/header.html"></header>
+  <header class="text-dark">
+    <%- include('../public/include/header.html') -%>
+  </header>
 
   <section class="container py-5 mt-5 px-4 list-home-eventos">
-    <div class="row">
-
-      <!-- <div class="col-12 col-sm-6 col-lg-4">
-        <a href="javascript:cardMaisEventos()" class="card card-evento card-mais-eventos w-100 mb-3 text-light border-0 rounded-0">
-          <div class="card-body text-center d-flex flex-column align-items-center justify-content-center">
-            <span class="mdi mdi-plus-box pt-0 pb-2 px-0 m-0 text-warning" style="line-height: 50px"></span>
-            <img src="./images/spin.svg" alt="" width="50px" height="55px" class="pt-0 pb-2 m-0">
-            <h5 class="font-weight-normal text-truncate m-0">TODOS OS EVENTOS</h5>
+    <div class="row justify-content-center">
+      <div class="col-md-11">
+        <div class="card-columns">
+          <div class="card bg-light">
+            <img class="card-img-top" src="https://instagram.frec1-2.fna.fbcdn.net/t51.2885-15/sh0.08/e35/p750x750/25011623_1993126077637312_704902754312650752_n.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class='card-title font-weight-normal text-truncate'>Jua Folia</h5>
+              <div class='font-ligh row card-descricao'>
+                <div class='col'>
+                  <span class='mdi mdi-calendar text-warning'></span> 28/10/2017
+                </div>
+                <div class='col text-right col-localizacao'>
+                  Teste <span class='mdi mdi-map-marker text-warning'></span>
+                </div>
+                <div class='col text-right col-comprar text-uppercase'>
+                  comprar <span class='mdi mdi-chevron-right text-warning'></span>
+                </div>
+              </div>
+            </div>
           </div>
-        </a>
-      </div> -->
+          <div class="card bg-light">
+            <img class="card-img-top" src="https://instagram.frec1-2.fna.fbcdn.net/t51.2885-15/sh0.08/e35/p750x750/25009200_775410989314887_2306782971396358144_n.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class='card-title font-weight-normal text-truncate'>Jua Folia</h5>
+              <div class='font-ligh row card-descricao'>
+                <div class='col'>
+                  <span class='mdi mdi-calendar text-warning'></span> 28/10/2017
+                </div>
+                <div class='col text-right col-localizacao'>
+                  Teste <span class='mdi mdi-map-marker text-warning'></span>
+                </div>
+                <div class='col text-right col-comprar text-uppercase'>
+                  comprar <span class='mdi mdi-chevron-right text-warning'></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card bg-light">
+            <img class="card-img-top" src="https://instagram.frec1-2.fna.fbcdn.net/t51.2885-15/s750x750/sh0.08/e35/25007564_152054845418906_9117344932292460544_n.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class='card-title font-weight-normal text-truncate'>Jua Folia</h5>
+              <div class='font-ligh row card-descricao'>
+                <div class='col'>
+                  <span class='mdi mdi-calendar text-warning'></span> 28/10/2017
+                </div>
+                <div class='col text-right col-localizacao'>
+                  Teste <span class='mdi mdi-map-marker text-warning'></span>
+                </div>
+                <div class='col text-right col-comprar text-uppercase'>
+                  comprar <span class='mdi mdi-chevron-right text-warning'></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card bg-light">
+            <img class="card-img-top" src="https://instagram.frec1-2.fna.fbcdn.net/t51.2885-15/s750x750/sh0.08/e35/25008767_159405578147027_6685418910382030848_n.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class='card-title font-weight-normal text-truncate'>Jua Folia</h5>
+              <div class='font-ligh row card-descricao'>
+                <div class='col'>
+                  <span class='mdi mdi-calendar text-warning'></span> 28/10/2017
+                </div>
+                <div class='col text-right col-localizacao'>
+                  Teste <span class='mdi mdi-map-marker text-warning'></span>
+                </div>
+                <div class='col text-right col-comprar text-uppercase'>
+                  comprar <span class='mdi mdi-chevron-right text-warning'></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card bg-light">
+            <img class="card-img-top" src="https://instagram.frec1-2.fna.fbcdn.net/t51.2885-15/sh0.08/e35/p640x640/25009936_133567427320434_3046790688147505152_n.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class='card-title font-weight-normal text-truncate'>Jua Folia</h5>
+              <div class='font-ligh row card-descricao'>
+                <div class='col'>
+                  <span class='mdi mdi-calendar text-warning'></span> 28/10/2017
+                </div>
+                <div class='col text-right col-localizacao'>
+                  Teste <span class='mdi mdi-map-marker text-warning'></span>
+                </div>
+                <div class='col text-right col-comprar text-uppercase'>
+                  comprar <span class='mdi mdi-chevron-right text-warning'></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card bg-light">
+            <img class="card-img-top" src="https://instagram.frec1-2.fna.fbcdn.net/t51.2885-15/s750x750/sh0.08/e35/25013115_137002203744678_7798259969161166848_n.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class='card-title font-weight-normal text-truncate'>Jua Folia</h5>
+              <div class='font-ligh row card-descricao'>
+                <div class='col'>
+                  <span class='mdi mdi-calendar text-warning'></span> 28/10/2017
+                </div>
+                <div class='col text-right col-localizacao'>
+                  Teste <span class='mdi mdi-map-marker text-warning'></span>
+                </div>
+                <div class='col text-right col-comprar text-uppercase'>
+                  comprar <span class='mdi mdi-chevron-right text-warning'></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card bg-light">
+            <img class="card-img-top" src="https://instagram.frec1-2.fna.fbcdn.net/t51.2885-15/sh0.08/e35/p750x750/25009034_350626955403659_5603845234992611328_n.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class='card-title font-weight-normal text-truncate'>Jua Folia</h5>
+              <div class='font-ligh row card-descricao'>
+                <div class='col'>
+                  <span class='mdi mdi-calendar text-warning'></span> 28/10/2017
+                </div>
+                <div class='col text-right col-localizacao'>
+                  Teste <span class='mdi mdi-map-marker text-warning'></span>
+                </div>
+                <div class='col text-right col-comprar text-uppercase'>
+                  comprar <span class='mdi mdi-chevron-right text-warning'></span>
+                </div>
+              </div>
+            </div>
+          </div> 
+        </div>
+      </div>
     </div>
   </section>
 
-  <section include="/include/preFooter.html"></section>
+  <%- include('../public/include/preFooter.html') -%>
 
-  <footer include="/include/footer.html"></footer>
+  <footer>
+    <%- include('../public/include/footer.html') -%>
+  </footer>
 
 
   <!-- JavaScript jquery -->
@@ -64,18 +152,19 @@
   <!-- JavaScript bootstrap -->
   <script src="./libraries/bootstrap_v4/js/bootstrap.min.js" charset="utf-8"></script>
 
+  <script src="/libraries/moments/moment.min.js" charset="utf-8"></script>
+  <script src="/libraries/moments/pt-br.js" charset="utf-8"></script>
+
   <script src="./javascripts/root.js" charset="utf-8"></script>
   <script src="./javascripts/diretivas.js" charset="utf-8"></script>
 
   <script type="text/javascript">
-  $(function () {
+  (function () {
     var $list
-    var $boxLista = $(".list-home-eventos .row")
+    var $boxLista = $(".list-home-eventos .card-columns")
     var control = null
+    $('.btn-nav-home').addClass('active')
 
-    window.onload = function () {
-      $('.btn-nav-home').addClass('active')
-    }
     $.ajax({
       url: hostApi+'/evento/lista',
       cache: true,
@@ -120,13 +209,13 @@
         }
       }
     })
-  })
+  })()
 
-  function cardMaisEventos() {
-    var elem = $('.card-mais-eventos')
-
-    elem.hasClass('active') ? elem.removeClass('active') : elem.addClass('active')
-  }
+  // function cardMaisEventos() {
+  //   var elem = $('.card-mais-eventos')
+  //
+  //   elem.hasClass('active') ? elem.removeClass('active') : elem.addClass('active')
+  // }
   </script>
 </body>
 </html>

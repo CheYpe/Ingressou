@@ -1,40 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" type="image/x-png" href="/images/icon.png"/>
-
-  <title><%= titulo %></title>
-  <meta name="description" content="Veja os eventos que acontecem na região do cariri e não fique sem sair de casa no final de semana.">
-  <meta name="keywords" content="ingressos,ingressou,entrada,show,balada,sites,e-commerce,venda ingressos">
-  <meta name="author" content="cheype.com.br">
-
-  <meta content="pt_br" property="og:locale">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="<%= titulo %>">
-  <meta property="og:url" content="http://ingressou.com"/>
-  <meta property="og:title" content="Ingressou" />
-  <meta property="og:description"  content="Veja os eventos que acontecem na região do cariri e não fique sem sair de casa no final de semana."/>
-  <meta property="og:image" content="./images/perfil.jpg" />
-  <meta property="og:image:type" content="./images/jpg">
-
-  <!-- Font -->
-  <link href="./stylesheets/open_sans.css" rel="stylesheet">
-
-  <!-- Estilo bootstrap -->
-  <link rel="stylesheet" href="./libraries/bootstrap_v4/css/bootstrap.min.css">
-  <!-- Arquivo de estilo -->
-  <link rel="stylesheet" href="./stylesheets/style.css">
-  <!-- Webfonts icons do google -->
-  <link rel="stylesheet" href="./libraries/webfont/css/materialdesignicons.min.css">
-
-  <!-- Inclusão por tag js (ex.: include='caminho') -->
-  <script src="./libraries/include/myInclude.js" charset="utf-8"></script>
+  <%- include('../public/include/head.html') -%>
 </head>
 <body class="bg-page">
   <!-- Seu site -->
-  <header class="text-dark" include="/include/header.html"></header>
+  <header class="text-dark">
+    <%- include('../public/include/header.html') -%>
+  </header>
 
   <section class="container py-5 my-4">
     <h2 class="text-center text-write">Deixe uma mensagem para nós!</h2>
@@ -52,9 +25,11 @@
 
   </section>
 
-  <section include="/include/preFooter.html"></section>
+  <%- include('../public/include/preFooter.html') -%>
 
-  <footer include="/include/footer.html"></footer>
+  <footer>
+    <%- include('../public/include/footer.html') -%>
+  </footer>
 
 
   <!-- JavaScript jquery -->
@@ -68,10 +43,8 @@
 
   <script type="text/javascript">
   $(function() {
-    window.onload = function() {
-      $(".btn-nav-contato").addClass('active')
-    }
-  })
+    $(".btn-nav-contato").addClass('active')
+  })()
   </script>
 </body>
 </html>
