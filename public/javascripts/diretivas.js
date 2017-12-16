@@ -10,7 +10,7 @@ var dir = (function(my) {
   my.ingressos = []
 
   my.cardEvento = function (obj) {
-    return "<a class='card card-evento border-0 bg-light text-dark' href='evento/"+obj.link+"'><img class='card-img-top' src='"+obj.imagem+"' alt='Card image cap'><div class='card-body'><h5 class='card-title font-weight-normal text-truncate'>"+obj.titulo+"</h5><div class='font-ligh row card-descricao'><div class='col text-truncate'><span class='mdi mdi-calendar text-warning'></span> "+moment(obj.data_periodo).format('DD/MM/YYYY')+"</div><div class='col text-right col-localizacao text-truncate'>"+obj.cidade+" <span class='mdi mdi-map-marker text-warning'></span></div><div class='col text-right col-comprar text-uppercase'>comprar <span class='mdi mdi-chevron-right text-warning'></span></div></div></div></a>"
+    return "<div class='card card-evento border-0 bg-dark text-light' onclick='javascript:eventoClick(\""+obj.link+"\")'><img class='card-img-top' src='"+obj.imagem+"' alt='Card image cap'><div class='card-body'><h5 class='card-title font-weight-normal text-truncate'>"+obj.titulo+"</h5><div class='font-ligh row card-descricao'><div class='col text-truncate'><span class='mdi mdi-calendar text-warning'></span> "+moment(obj.data_periodo).format('DD/MM/YYYY')+"</div><div class='col text-right col-localizacao text-truncate'>"+obj.cidade+" <span class='mdi mdi-map-marker text-warning'></span></div><div class='col text-right col-comprar text-uppercase'>Informações <span class='mdi mdi-chevron-right text-warning'></span></div></div></div></div>"
   }
 
   my.abaDataEvento = function (obj) {

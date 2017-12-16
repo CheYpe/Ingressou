@@ -52,6 +52,9 @@ body {
 .font-120 {
   font-size: 1.2em
 }
+.font-80 {
+  font-size: 0.8em
+}
 h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
 }
@@ -64,15 +67,20 @@ button, input {
 .list-home-eventos .card {
   text-decoration: none !important;
   outline: none !important;
-  overflow: hidden;
+  /*overflow: hidden;*/
 
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   background-blend-mode: multiply;
 }
-.box-evento {
-  margin-top: -250px;
+.list-home-eventos .card:hover, .list-home-eventos .card:focus {
+  animation-name: pulse;
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+}
+.list-home-eventos .card .card-body {
+  overflow: hidden;
 }
 
 .list-home-eventos .card .col-comprar {
@@ -94,13 +102,16 @@ button, input {
   animation-fill-mode: both;
 }
 
-.list-home-eventos .card:hover, .list-home-eventos .card:focus {
-  animation-name: pulse;
-  animation-duration: 0.3s;
-  animation-fill-mode: both;
+#modalEvento > .container {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
-
-
+.menu-evento {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
 .btn-group-shared {
   overflow: hidden;
 }
