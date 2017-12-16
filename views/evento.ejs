@@ -11,22 +11,19 @@
   </header>
 
   <section class="container border-0 my-5">
-    <div class="row justify-content-center">
-      <div class="col-md-10">
-        <div class="row no-gutters bg-dark text-light">
-          <div class="col-md-3">
-            <img src="https://instagram.frec1-2.fna.fbcdn.net/t51.2885-15/sh0.08/e35/p750x750/25011623_1993126077637312_704902754312650752_n.jpg" alt="" class="img-fluid">
-          </div>
-          <div class="col-md-9 p-3" style="padding-bottom: 78px !important;">
-            <h2 id="titulo"></h2>
-            <a id="local" class="text-light font-ligh font-80"><span class='mdi mdi-map-marker text-warning'></span> </a>
+    <div class="row no-gutters bg-dark text-light" style="position: relative">
+      <div class="col-md-5">
+        <img id="imagem" src="" alt="" class="img-fluid">
+      </div>
+      <div class="col-md-7 p-3" style="padding-bottom: 78px !important;">
+        <h2 id="titulo"></h2>
+        <a class="text-light font-ligh font-80"><span class='mdi mdi-map-marker text-warning'></span> <span id="local"></span></a>
 
-            <div id="descricao" class="font-80 mt-3"></div>
+        <div id="descricao" class="font-80 mt-3"></div>
 
-            <div class="menu-evento">
-              <a href="#" class="btn btn-success btn-facil-comprar border-0 rounded-0 btn-block px-3">Comprar</a>
-            </div>
-          </div>
+        <div class="menu-evento">
+          <a href="javascript:window.history.go(-1)" class="btn btn-secondary border-0 rounded-0 btn-inline px-3">Voltar</a>
+          <a href="#" class="btn btn-success btn-facil-comprar border-0 rounded-0 btn-inline px-3 disabled">Comprar</a>
         </div>
       </div>
     </div>
@@ -89,9 +86,9 @@
         cache: 'false'
       }).done(function (res) {
 
-        console.log(res)
+        $("#imagem").attr('src', res.imagem)
         $("#titulo").html(res.titulo)
-        $("#local").append(res.localidade + " - " + res.cidade)
+        $("#local").html(res.localidade + " - " + res.cidade)
         $("#local").attr('href', res.mapa)
         $("#descricao").html(res.descricao)
 

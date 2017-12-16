@@ -102,15 +102,12 @@ button, input {
   animation-fill-mode: both;
 }
 
-#modalEvento > .container {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}
 .menu-evento {
   position: absolute;
   bottom: 20px;
   right: 20px;
+  width: 100%;
+  text-align: right;
 }
 .btn-group-shared {
   overflow: hidden;

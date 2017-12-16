@@ -18,26 +18,6 @@
     </div>
   </section>
 
-  <section class="modal" id="modalEvento">
-    <div class="container">
-      <div class="row no-gutters bg-dark text-light">
-        <div class="col-md-4">
-          <img id="imagem" src="" alt="" class="img-fluid">
-        </div>
-        <div class="col-md-8 p-3" style="padding-bottom: 78px !important;">
-          <h2 id="titulo"></h2>
-          <a class="text-light font-ligh font-80"><span class='mdi mdi-map-marker text-warning'></span> <span id="local"></span></a>
-
-          <div id="descricao" class="font-80 mt-3"></div>
-
-          <div class="menu-evento">
-            <a href="#" class="btn btn-success btn-facil-comprar border-0 rounded-0 btn-block px-3 disabled">Comprar</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <%- include('../public/include/preFooter.html') -%>
 
   <footer>
@@ -59,37 +39,11 @@
   <script src="./javascripts/diretivas.js" charset="utf-8"></script>
 
   <script type="text/javascript">
-  var $modal = $("#modalEvento")
-
-  function eventoClick(_link) {
-    $.ajax({
-      url: hostApi+'/evento/'+_link,
-      cache: 'false'
-    }).done(function (res) {
-
-      $("#imagem").attr('src', res.imagem)
-      $("#titulo").html(res.titulo)
-      $("#local").html(res.localidade + " - " + res.cidade)
-      $("#local").attr('href', res.mapa)
-      $("#descricao").html(res.descricao)
-
-      $modal.modal({show: true})
-
-    }).fail(function (res) {
-      console.log("error")
-
-      setTimeout(function () {
-        eventoClick(_link)
-      }, 1000);
-    })
-  }
-
   (function () {
     var $list = ''
     var $boxLista = $(".list-home-eventos .card-columns")
     var control = null
     $('.btn-nav-home').addClass('active')
-
 
     $.ajax({
       url: hostApi+'/evento/lista',
@@ -107,8 +61,6 @@
     })
 
   })()
-
-
 
   // function cardMaisEventos() {
   //   var elem = $('.card-mais-eventos')
