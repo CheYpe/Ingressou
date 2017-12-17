@@ -13,13 +13,13 @@
   <section class="container border-0 my-5">
     <div class="row no-gutters bg-dark text-light" style="position: relative">
       <div class="col-md-5">
-        <img id="imagem" src="" alt="" class="img-fluid">
+        <img src="<%= imagem %>" alt="" class="img-fluid">
       </div>
       <div class="col-md-7 p-3" style="padding-bottom: 78px !important;">
-        <h2 id="titulo"></h2>
-        <a class="text-light font-ligh font-80"><span class='mdi mdi-map-marker text-warning'></span> <span id="local"></span></a>
+        <h2><%= titulo %></h2>
+        <a class="text-light font-ligh font-80" href="<%= mapa %>" target="_blank"><span class='mdi mdi-map-marker text-warning'></span> <%= localidade %> - <%= cidade %> / <%= uf %></a>
 
-        <div id="descricao" class="font-80 mt-3"></div>
+        <div class="font-80 mt-3"><%= descricao %></div>
 
         <div class="menu-evento">
           <a href="javascript:window.history.go(-1)" class="btn btn-secondary border-0 rounded-0 btn-inline px-3">Voltar</a>
@@ -49,9 +49,8 @@
 
   <%- include('../public/include/preFooter.html') -%>
 
-  <footer>
-    <%- include('../public/include/footer.html') -%>
-  </footer>
+  <%- include('../public/include/footer.html') -%>
+
 
 
   <!-- JavaScript jquery -->
@@ -78,38 +77,6 @@
   $(function () {
 
     // var $bComprar = $('button.btn-comprar')
-    var ingressos = dir.ingressos
-
-    function getEvento() {
-      $.ajax({
-        url: hostApi+'/evento/<%= link %>',
-        cache: 'false'
-      }).done(function (res) {
-
-        $("#imagem").attr('src', res.imagem)
-        $("#titulo").html(res.titulo)
-        $("#local").html(res.localidade + " - " + res.cidade)
-        $("#local").attr('href', res.mapa)
-        $("#descricao").html(res.descricao)
-
-        res.periodos.forEach(function (elem) {
-          // $("#listAbaData").append(dir.abaDataEvento(elem))
-          // $("#listDetalhesIngresso").append(dir.detalhesIngresso(elem))
-        })
-        // frame.init()
-        // controleQtd()
-
-      }).fail(function (res) {
-
-        console.log("error")
-
-        setTimeout(function () {
-          getEvento()
-        }, 1000);
-
-      })
-    }
-    getEvento()
 
     // var $wrap  = $('.slide-date-ingressos').parent()
     // var slyOptions = {
