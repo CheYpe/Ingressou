@@ -15,7 +15,7 @@
       <div class="col-md-5">
         <img src="<%= imagem %>" alt="" class="img-fluid">
       </div>
-      <div class="col-md-7 p-3" style="padding-bottom: 78px !important;">
+      <div class="col-md-7 p-4" style="padding-bottom: 78px !important;">
         <h2><%= titulo %></h2>
         <a class="text-light font-ligh font-80" href="<%= mapa %>" target="_blank"><span class='mdi mdi-map-marker text-warning'></span> <%= localidade %> - <%= cidade %> / <%= uf %></a>
 
@@ -29,23 +29,26 @@
     </div>
   </section>
 
-  <!-- <h3 id="periodoEvento">Periodo do evento:</h3>
-  <div class="border border-secondary bg-light pt-2 mt-3">
-    <div class="slide-date-ingressos mb-3">
-      <ul id="listAbaData"></ul>
-      <button type="button" name="button" class="prev bg-light">
-        <span class="mdi mdi-chevron-left mdi-24px"></span>
-      </button>
-      <button type="button" name="button" class="next bg-light">
-        <span class="mdi mdi-chevron-right mdi-24px"></span>
-      </button>
+  <section class="container">
+    <h3 class="text-light">Periodo do evento:</h3>
+    <div class="border border-secondary bg-dark border-0 rounded-0 pt-2 mt-3 mb-5">
+      <div class="slide-date-ingressos mb-3">
+        <ul id="listAbaData" class="text-light"></ul>
+        <button type="button" name="button" class="prev bg-dark">
+          <span class="mdi mdi-chevron-left mdi-24px text-light"></span>
+        </button>
+        <button type="button" name="button" class="next bg-dark">
+          <span class="mdi mdi-chevron-right mdi-24px text-light"></span>
+        </button>
+      </div>
+      <div class="box-tipo-ingressos">
+        <form id="formTiposIngressos">
+          <ul id="listDetalhesIngresso" class='m-0 p-0'></ul>
+        </form>
+      </div>
     </div>
-    <div class="box-tipo-ingressos">
-      <form id="formTiposIngressos">
-        <ul id="listDetalhesIngresso" class='m-0 p-0'></ul>
-      </form>
-    </div>
-  </div> -->
+  </section>
+
 
   <%- include('../public/include/preFooter.html') -%>
 
@@ -76,30 +79,40 @@
   <script type="text/javascript">
   $(function () {
 
-    // var $bComprar = $('button.btn-comprar')
+    var _periodos = <%- JSON.stringify(periodos) %>
 
-    // var $wrap  = $('.slide-date-ingressos').parent()
-    // var slyOptions = {
-    //   horizontal: 1,       itemNav: 'centered',
-    //   smart: 1,            activateMiddle: 1,
-    //   activateOn: 'click', mouseDragging: 1,
-    //   touchDragging: 1,    releaseSwing: 1,
-    //   startAt: 0,          scrollBy: 1,
-    //   speed: 300,          elasticBounds: 1,
-    //   easing: 'linear',    dragHandle: 1,
-    //   dynamicHandle: 1,
-    //
-    //   // Buttons
-    //   prev: $wrap.find('.prev'),
-    //   next: $wrap.find('.next')
-    // }
-    //
-    // var frame = new Sly('.slide-date-ingressos', slyOptions, {
-    //   active: function (e, i) {
-    //     $('.box-tipo-ingressos ul .active').removeClass('active')
-    //     $($('.box-tipo-ingressos ul li')[i]).addClass('active')
-    //   }
-    // })
+    var $wrap  = $('.slide-date-ingressos').parent()
+    var slyOptions = {
+      horizontal: 1,       itemNav: 'centered',
+      smart: 1,            activateMiddle: 1,
+      activateOn: 'click', mouseDragging: 1,
+      touchDragging: 1,    releaseSwing: 1,
+      startAt: 0,          scrollBy: 1,
+      speed: 300,          elasticBounds: 1,
+      easing: 'linear',    dragHandle: 1,
+      dynamicHandle: 1,
+
+      // Buttons
+      prev: $wrap.find('.prev'),
+      next: $wrap.find('.next')
+    }
+
+    var frame = new Sly('.slide-date-ingressos', slyOptions, {
+      active: function (e, i) {
+        $('.box-tipo-ingressos ul .active').removeClass('active')
+        $($('.box-tipo-ingressos ul li')[i]).addClass('active')
+      }
+    })
+
+
+    _periodos.forEach(function (elem, index, arr) {
+      $("#listAbaData").append(dir.abaDataEvento(elem))
+      $("#listDetalhesIngresso").append(dir.detalhesIngresso(elem))
+
+      if(1+index === arr.length) {
+        frame.init()
+      }
+    })
 
     // function atualizaTotal() {
     //   var $list = $('.ingressoValue')

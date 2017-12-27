@@ -6,7 +6,7 @@ var router = express.Router();
 router.get('/[a-zA-Z0-9_]+?', function(req, res, next) {
 
   var _link = req.path.replace('/','');
-  http.get('http://18.231.16.165:3000/v1/evento/'+_link, (resp) => {
+  http.get('http://api.ingressou.com/v1/evento/'+_link, (resp) => {
 
     let data = '';
 
@@ -18,7 +18,7 @@ router.get('/[a-zA-Z0-9_]+?', function(req, res, next) {
     // The whole response has been received. Print out the result.
     resp.on('end', () => {
       data = JSON.parse(data)
-      data.titulo += ' - Ingressou'
+      data.titulo_page = data.titulo + ' - Ingressou'
 
       res.render('evento', data);
     });

@@ -64,10 +64,17 @@ button, input {
 }
 
 /* Estilos */
+.list-home-eventos .grid {
+  margin: 0 auto
+}
+.list-home-eventos .grid .gutter-sizer {
+  width: 5%;
+}
 .list-home-eventos .card {
   text-decoration: none !important;
   outline: none !important;
-  /*overflow: hidden;*/
+  margin-bottom: 25px;
+  overflow: hidden;
 
   background-position: center;
   background-size: cover;
@@ -78,9 +85,6 @@ button, input {
   animation-name: pulse;
   animation-duration: 0.3s;
   animation-fill-mode: both;
-}
-.list-home-eventos .card .card-body {
-  overflow: hidden;
 }
 
 .list-home-eventos .card .col-comprar {
@@ -209,7 +213,6 @@ footer {
   margin: 0 1px 0 0;
   padding: 0;
   background: transparent;
-  color: #333;
   text-align: center;
   cursor: pointer;
 }
@@ -250,9 +253,11 @@ footer {
   .card-columns {
     column-count: 3;
   }
+  .list-home-eventos .card { width: 30% }
 }
 
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+}
 
 @media (max-width: 576px) {
   header {
@@ -261,14 +266,32 @@ footer {
   header .mdi {
     font-size: 25px !important;
   }
+  .list-home-eventos .card { width: 100% !important }
 }
 
 @media (max-width: 768px) {
   .box-evento {
     margin-top: -90px;
   }
+  .list-home-eventos .card { width: 45% }
+
+  .list-home-eventos .card .card-img-top {
+    width: 25%
+  }
+  .list-home-eventos .card .card-body {
+    width: 75%;
+    position: absolute;
+    left: 25%;
+    height: 100%;
+    padding: 15px 20px;
+  }
+  .list-home-eventos .card .card-body .card-descricao {
+    position: relative;
+    top: calc(100% - 45px);
+  }
 }
 
-@media (max-width: 992px) {}
+@media (max-width: 992px) {
+}
 
 @media (max-width: 1200px) {}

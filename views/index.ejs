@@ -11,10 +11,8 @@
   </header>
 
   <section class="container py-5 mt-5 px-4 list-home-eventos">
-    <div class="row justify-content-center">
-      <div class="col-md-11">
-        <div class="card-columns"></div>
-      </div>
+    <div class="grid">
+      <div class="gutter-sizer"></div>
     </div>
   </section>
 
@@ -33,26 +31,39 @@
   <script src="/libraries/moments/moment.min.js" charset="utf-8"></script>
   <script src="/libraries/moments/pt-br.js" charset="utf-8"></script>
 
+  <script src="/libraries/masonry-layout/masonry.pkgd.min.js"></script>
+  <script src="/libraries/masonry-layout/imagesloaded.pkgd.min.js"></script>
+
   <script src="./javascripts/root.js" charset="utf-8"></script>
   <script src="./javascripts/diretivas.js" charset="utf-8"></script>
 
   <script type="text/javascript">
   (function () {
     var $list = ''
-    var $boxLista = $(".list-home-eventos .card-columns")
+    var $boxLista = $(".list-home-eventos .grid")
     var control = null
     $('.btn-nav-home').addClass('active')
 
     $.ajax({
-      url: hostApi+'/evento/lista',
+      url: hostApi+'/evento/lista?ordene=data_periodo&tipo=asc',
       cache: true,
     }).done(function (e) {
       var teste = "";
-      (e.dados).forEach(function (elem) {
+      (e.dados).forEach(function (elem, index, arr) {
         // elem.imagem = hostApi+'/image/'+elem.imagem
         teste += dir.cardEvento(elem)
       })
+
       $boxLista.append(teste)
+      imagesLoaded($boxLista, function () {
+        $boxLista.masonry({
+          itemSelector: '.grid-item',
+          columnWidth: '.grid-item',
+          gutter: '.gutter-sizer',
+          percentPosition: true
+        });
+      })
+
       $list = $(".card-evento")
     }).fail(function () {
       console.log('Error');

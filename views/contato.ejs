@@ -14,12 +14,13 @@
     <p class="text-center text-light">No rodapé dessa página você encontra mais opções de contato.</p>
 
     <div class="row justify-content-center mt-5">
-      <form class="col-sm-6" action="index.html" method="post">
-        <input type="text" name="" value="" placeholder="Seu nome" class="form-control form-control-lg form-group">
-        <input type="text" name="" value="" placeholder="Seu email" class="form-control form-control-lg form-group">
-        <input type="text" name="" value="" placeholder="Seu telefone" class="form-control form-control-lg form-group">
-        <textarea name="name" rows="3" class="form-control form-control-lg form-group" placeholder="Você escreve a sua mensagem aqui."></textarea>
-        <button type="button" name="button" class="btn btn-lg btn-default px-4 d-block ml-auto">Enviar</button>
+      <form class="col-sm-6" action="javascript:enviaEmail()" method="post" name="form">
+        <input type="text" name="nome" placeholder="Seu nome" class="form-control form-control-lg form-group" required>
+        <input type="email" name="email" placeholder="Seu email" class="form-control form-control-lg form-group" required>
+        <input type="text" name="telefone" placeholder="Seu telefone" class="form-control form-control-lg form-group" pattern="^[0-9]*?" title="Somente números" required>
+        <textarea name="mensagem" rows="3" class="form-control form-control-lg form-group" placeholder="Você escreve a sua mensagem aqui." required></textarea>
+        <span class="resultErro text-danger d-block text-right"></span>
+        <button type="submit" name="button" class="btn btn-lg btn-default px-4 d-block ml-auto">Enviar</button>
       </form>
     </div>
 
@@ -40,9 +41,32 @@
   <script src="./javascripts/root.js" charset="utf-8"></script>
 
   <script type="text/javascript">
-  $(function() {
+  (function() {
     $(".btn-nav-contato").addClass('active')
   })()
+
+  function enviaEmail() {
+    var mensagem = JSON.stringify({
+      "nome": form.nome.value,
+      "email": form.email.value,
+      "telefone": form.telefone.value,
+      "mensagem": form.mensagem.value
+    })
+    $.ajax({
+      url: "http://api.ingressou.com/v1/email",
+      method: "post",
+      data: mensagem,
+      cache: false
+    }).then(function (res) {
+      form.button.disabled = true
+      form.button.innerText = "Mensagem enviada!"
+    }, function (res) {
+      form.button.disabled = true
+      form.button.innerText = "Error no envio!"
+      $(".resultErro").text("Tivemos um erro, tente novamente mais tarde!")
+    })
+
+  }
   </script>
 </body>
 </html>
