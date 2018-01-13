@@ -12,7 +12,11 @@
 
   <section class="container py-5 mt-5 px-4 list-home-eventos">
     <div class="grid">
-      <div class="gutter-sizer"></div>
+      <div id="loadingEventos" class="text-center">
+        <p class="text-light" style="font-size: 1.5em"><img src="/images/spin.svg" alt="" height="50" width="50" class="mb-1"> Carregando...</p>
+      </div>
+      <div class="gutter-sizer">
+      </div>
     </div>
   </section>
 
@@ -50,18 +54,19 @@
     }).done(function (e) {
       var teste = "";
       (e.dados).forEach(function (elem, index, arr) {
-        // elem.imagem = hostApi+'/image/'+elem.imagem
         teste += dir.cardEvento(elem)
       })
 
       $boxLista.append(teste)
       imagesLoaded($boxLista, function () {
+        $('#loadingEventos').remove()
+        $boxLista.find(".card").css("display", "flex")
         $boxLista.masonry({
           itemSelector: '.grid-item',
           columnWidth: '.grid-item',
           gutter: '.gutter-sizer',
           percentPosition: true
-        });
+        })
       })
 
       $list = $(".card-evento")

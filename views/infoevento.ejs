@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <%- include('../public/include/head.html') -%>
+</head>
+<body class="bg-page">
+  <!-- Seu site -->
+
+  <header class="text-dark">
+    <%- include('../public/include/header.html') -%>
+  </header>
+
+  <section class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="p-3 card card-secondary mt-4">
+          <div class="card-body">
+            <h5 class="mb-1">Evento <span class="font-bold text-success" id="titulo"></span></h5>
+            <p class="mb-4">Cadastre o periodo do evento e as categorias dos ingressos</p>
+
+            <div class="tabelaPeriodos mb-5">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th class="w-25">Data</th>
+                    <th class="text-center">Atrações</th>
+                    <th class="text-right w-25">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="listPeriodos">
+                  <tr>
+                    <td colspan="3" class="text-center pNull">Sem registro</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <hr>
+
+            <form  action="javascript:salvaPeriodo()" method="post" name="form">
+              <div class="form-row">
+                <div class="col-md-4">
+                  <input type="datetime-local" name="data" class="form-control form-group" required style="height: 38px">
+                </div>
+                <div class="col-md-8">
+                  <input type="text" name="atracao" placeholder="Atrações dessa data" class="form-control form-group" required>
+                </div>
+              </div>
+              <span class="resultErro text-danger d-block text-right"></span>
+              <button type="submit" name="button" class="btn btn-primary px-5 d-block ml-auto">Enviar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Entradas para o periodo: <span class="periodoModal"></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th class="font-80 w-50">Nome</th>
+              <th class="font-80 text-center">Valor</th>
+              <th class="font-80 text-center">Quantidade</th>
+              <th class="font-80 text-center">Lote</th>
+            </tr>
+          </thead>
+          <tbody id="listCategoria">
+            <tr>
+              <td colspan="4" class="text-center cNull">Sem registro</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer d-block">
+        <form  action="javascript:salvaCategoria()" method="post" name="formC">
+          <div class="form-row">
+            <input type="hidden" name="pId" value="">
+            <input type="hidden" name="cId" value="">
+            <div class="col">
+              <span>Nome</span>
+              <input type="text" name="nome" class="form-control" required>
+            </div>
+            <div class="col">
+              <span>Valor</span>
+              <input type="text" name="valor" class="form-control" required>
+            </div>
+            <div class="col-2">
+              <span>Qtd</span>
+              <input type="number" name="quantidade" min="0" value="0" class="form-control" required>
+            </div>
+            <div class="col-2">
+              <span>Lote</span>
+              <input type="number" name="lote" min="0" value="0" class="form-control" required>
+            </div>
+          </div>
+          <div class="text-right">
+            <a href="javascript:removeCategoria()" class="btn btn-danger btn-remover-categoria mt-2 px-3 d-inline-block disabled">Remover</a>
+            <button type="submit" class="btn btn-primary mt-2 px-5 d-inline-block">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <%- include('../public/include/preFooter.html') -%>
+
+  <%- include('../public/include/footer.html') -%>
+
+
+
+  <!-- JavaScript jquery -->
+  <script src="/libraries/jquery/jquery-3.1.1.min.js" charset="utf-8"></script>
+  <!-- JavaScript popper -->
+  <script src="/libraries/bootstrap_v4/js/popper.min.js" charset="utf-8"></script>
+  <!-- JavaScript bootstrap -->
+  <script src="/libraries/bootstrap_v4/js/bootstrap.min.js" charset="utf-8"></script>
+  <script src="/libraries/purl/purl.min.js" charset="utf-8"></script>
+
+  <script src="/libraries/moments/moment.min.js" charset="utf-8"></script>
+  <script src="/libraries/moments/pt-br.js" charset="utf-8"></script>
+
+  <script src="/javascripts/root.js" charset="utf-8"></script>
+
+  <script type="text/javascript">
+  var $listP = $('#listPeriodos')
+  var $listC = $('#listCategoria')
+  var categorias
+  var evento
+
+  function exibirPeriodo(p, listP) {
+    if (p) {
+      listP.text("")
+
+      p.forEach(function (elem) {
+        $(listP).append("<tr id='p"+elem.id+"'><td class='align-middle'>"+moment.utc(elem.data).format('DD/MM/YYYY - HH:mm')+"</td><td class='align-middle'>"+elem.atracao+"</td><td class='text-right align-middle'><a href='javascript:removePeriodo("+elem.id+")' class='btn btn-sm py-0'>remover</a> <a href='javascript:mostrarModal("+elem.id+")' class='btn btn-sm py-0'>Ingressos</a></td></tr>")
+      })
+    }
+  }
+
+  function exibirCategoria(c, listC, pId) {
+    if (c.length > 0) {
+      listC.text("")
+
+      c.forEach(function (elem) {
+        $(listC).append("<tr id='c"+elem.id+"' onclick=(editCategoria("+pId+","+elem.id+"))><td class='align-middle'>"+elem.nome+"</td><td class='align-middle'>"+elem.valor+"</td><td class='align-middle'>"+elem.quantidade+"</td><td class='align-middle'>"+elem.lote+"</td></tr>")
+      })
+    }else{
+      listC.html("<tr><td colspan='4' class='text-center cNull'>Sem registro</td></tr>")
+    }
+  }
+
+  function mostrarModal(id) {
+    evento.periodos.forEach(function (elem) {
+      if (elem.id === id){
+        $(".modal .modal-title .periodoModal").text(moment.utc(elem.data).format('DD/MM/YYYY'))
+        formC.pId.value = id
+
+        elem.categorias ? categorias = elem.categorias : categorias = []
+        exibirCategoria(categorias, $listC, elem.id)
+
+        $(".modal").modal('show')
+      }
+    })
+  }
+
+  function editCategoria(pId, cId) {
+    categorias.forEach(function (elem) {
+      if (elem.id == cId) {
+        formC.pId.value = pId
+        formC.cId.value = cId
+        formC.nome.value = elem.nome
+        formC.valor.value = elem.valor
+        formC.quantidade.value = elem.quantidade
+        formC.lote.value = elem.lote
+
+        $(".btn-remover-categoria").removeClass('disabled')
+      }
+    })
+  }
+
+  function salvaPeriodo() {
+    var _periodo = {
+      "data_periodo": form.data.value,
+      "atracao": form.atracao.value,
+    }
+
+    $.ajax({
+      url: hostApi+'/evento/'+evento.id+"/periodo",
+      method: 'post',
+      data: JSON.stringify(_periodo),
+      cache: false
+    }).done(function (res) {
+      _periodo.id = res.id
+      evento.periodos.push(_periodo)
+
+      exibirPeriodo(evento.periodos, $listP)
+    }).fail(function (res) {
+      console.log("Error", res);
+    })
+  }
+
+  function salvaCategoria() {
+    var _categoria = {
+      "nome": formC.nome.value,
+      "valor": parseFloat(formC.valor.value),
+      "quantidade": parseInt(formC.quantidade.value),
+      "lote": parseInt(formC.lote.value)
+    }
+
+    if (!formC.cId.value) {
+      $.ajax({
+        url: hostApi+'/periodo/'+formC.pId.value+"/categoria",
+        method: 'post',
+        data: JSON.stringify(_categoria),
+        cache: false
+      }).done(function (res) {
+        _categoria.id = res.id
+        categorias.push(_categoria)
+
+        exibirCategoria(categorias, $listC, formC.pId.value)
+
+        formC.reset()
+      }).fail(function (res) {
+        console.log("Error", res.responseJSON);
+      })
+    }else{
+      $.ajax({
+        url: hostApi+'/periodo/'+formC.pId.value+"/categoria/"+formC.cId.value,
+        method: 'put',
+        data: JSON.stringify(_categoria),
+        cache: false
+      }).done(function (res) {
+        _categoria.id = formC.cId.value
+        categorias.forEach(function (elem, i, arr) {
+          if (elem.id == formC.cId.value) {
+            arr.splice(i, 1, _categoria)
+            exibirCategoria(categorias, $listC, formC.pId.value)
+          }
+        })
+
+        formC.reset()
+        formC.cId.value = ''
+        $(".btn-remover-categoria").addClass('disabled')
+      }).fail(function (res) {
+        console.log("Error", res.responseJSON);
+      })
+    }
+  }
+
+  function removePeriodo(id) {
+    $.ajax({
+      url: hostApi+'/evento/'+evento.id+"/periodo/"+id,
+      method: 'delete',
+      cache: false
+    }).done(function (res) {
+      $("#p"+id).remove()
+
+      evento.periodos.forEach(function (elem, i, arr) {
+        if (elem.id === id) {
+          arr.splice(i, 1)
+        }
+      })
+    }).fail(function (res) {
+      console.log("Error", res)
+    })
+  }
+
+  function removeCategoria() {
+    pId = formC.pId.value
+    cId = formC.cId.value
+
+    $.ajax({
+      url: hostApi+'/periodo/'+pId+"/categoria/"+cId,
+      method: 'delete',
+      cache: false
+    }).done(function (res) {
+      $("#c"+cId).remove()
+
+      categorias.forEach(function (elem, i, arr) {
+        if (elem.id === cId) {
+          arr.splice(i, 1)
+        }
+      })
+
+      formC.reset()
+      formC.cId.value = ''
+      $(".btn-remover-categoria").addClass('disabled')
+    }).fail(function (res) {
+      console.log("Error", res.responseJSON)
+    })
+  }
+
+  (function () {
+    var $titulo = $('#titulo')
+    var _link = "<%= link %>"
+    $('.btn-nav-novoevento').addClass('active')
+
+    $.ajax({
+      url: hostApi+'/evento/'+_link,
+      method: 'get'
+    }).done(function (res) {
+      evento = res
+
+      $titulo.text(res.titulo)
+      exibirPeriodo(res.periodos, $listP)
+    }).fail(function (res) {
+      console.log("Error", res);
+    })
+  })()
+  </script>
+</body>
+</html>

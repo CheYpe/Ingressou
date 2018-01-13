@@ -1,7 +1,7 @@
 @import "../libraries/animate/animate.min.css";
 
 /* Colors */
-.text-primary { color: #004B79 !important }
+/*.text-primary { color: #004B79 !important }
 .text-secondary { color: #EA8258 !important }
 .text-info { color: #007AC5 !important }
 .text-warning { color: #FFAC6B !important }
@@ -17,13 +17,9 @@
 .bg-light { background-color: #FAFAFC !important }
 .bg-write { background-color: #FFF !important }
 .bg-transparente { background-color: transparent !important }
-
+*/
 .bg-page {
-  background-image: url(/images/background.jpg) !important;
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: #27292c !important
 }
 
 /* Root */
@@ -34,11 +30,6 @@ body {
 .btn {
   font-weight: 200;
   cursor: pointer !important;
-}
-.btn.active {
-  background: none !important;
-  border: 0;
-  font-weight: bold;
 }
 .font-ligh {
   font-weight: 200;
@@ -71,6 +62,7 @@ button, input {
   width: 5%;
 }
 .list-home-eventos .card {
+  display: none;
   text-decoration: none !important;
   outline: none !important;
   margin-bottom: 25px;
@@ -87,7 +79,7 @@ button, input {
   animation-fill-mode: both;
 }
 
-.list-home-eventos .card .col-comprar {
+.list-home-eventos .card .col-informacoes {
   display: none;
   animation-name: fadeOutRight;
   animation-duration: 0.3s;
@@ -99,7 +91,7 @@ button, input {
   animation-duration: 0.4s;
   animation-fill-mode: both;
 }
-.list-home-eventos .card:focus .col-comprar, .list-home-eventos .card:hover .col-comprar  {
+.list-home-eventos .card:focus .col-informacoes, .list-home-eventos .card:hover .col-informacoes  {
   display: block;
   animation-name: fadeInRight;
   animation-duration: 0.5s;
@@ -147,6 +139,42 @@ header {
 }
 .card .card-body .card-title {
   font-size: 18px !important;
+  line-height: 26px;
+}
+.card .card-body .col-localizacao {
+  padding-left: 0;
+  padding-right: 30px;
+}
+.card .card-body .col-localizacao::after {
+  content: "\F34E";
+  position: absolute;
+  right: 15px;
+  color: #FFAC6B !important;
+  font: normal normal normal 24px/1 "Material Design Icons";
+  font-size: inherit;
+  text-rendering: auto;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.card .card-body .col-informacoes {
+  padding-left: 0;
+  padding-right: 30px;
+}
+.card .card-body .col-informacoes::after {
+  content: "\F142";
+  position: absolute;
+  right: 15px;
+  color: #FFAC6B !important;
+  font: normal normal normal 24px/1 "Material Design Icons";
+  font-size: inherit;
+  text-rendering: auto;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.card .card-body .card-descricao {
+  width: calc(100% + 30px);
 }
 .card-mais-eventos { height: calc(100% - 16px); }
 .card-mais-eventos .mdi { font-size: 50px; }
@@ -285,9 +313,10 @@ footer {
     height: 100%;
     padding: 15px 20px;
   }
-  .list-home-eventos .card .card-body .card-descricao {
-    position: relative;
-    top: calc(100% - 45px);
+  .list-home-eventos .card .card-body .card-title {
+    font-size: 14px !important;
+    line-height: 17px;
+    margin-bottom: 0;
   }
 }
 

@@ -10,9 +10,70 @@
     <%- include('../public/include/header.html') -%>
   </header>
 
-  <section class="container my-5 text-light text-center">
-    <h2>Dê mais visibilidade ao seu evento</h2>
-    <p class="font-ligh">Preencha o formulário corretamente para adicionar seu evento no nosso site.</p>
+  <section class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="p-3 card card-secondary mt-4">
+          <div class="card-body">
+            <h5 class="mb-1">Dê mais visibilidade ao seu evento</h5>
+            <p class="mb-4">Preencha o formulário corretamente para adicionar seu evento no nosso site.</p>
+
+            <form  action="javascript:salvaEvento()" method="post" name="form">
+              <input id="tituloEvento" type="text" name="titulo" placeholder="Titulo do evento" class="form-control form-group" required autocomplete="off">
+              <input id="linkEvento" type="text" name="link" placeholder="Link do evento" class="form-control form-group" required disabled>
+
+              <!-- <input id="upLoadImg"type="file" name="" value="" class="form-control form-group d-none">
+              <label for="upLoadImg" class="btn btn-outline-secondary d-block form-group text-truncate">Carrege uma imagem para o evento</label> -->
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <textarea name="descricao" rows="3" class="form-control form-group" placeholder="Escreva a descrição aqui" required style="height: calc(100% - 16px)"></textarea>
+                </div>
+                <div class="col-sm-6">
+                  <select class="form-control form-group" name="uf" required>
+                    <option value="">Estado do evento</option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Rorâima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                  </select>
+                  <input type="text" name="cidade" placeholder="Cidade do evento" class="form-control form-group" required>
+                  <input type="text" name="localidade" placeholder="Local do evento" class="form-control form-group" required>
+                </div>
+              </div>
+
+              <input type="text" name="imagem" placeholder="Link da imagem do evento" class="form-control form-group" required>
+              <input type="text" name="mapa" placeholder="Link do mapa do evento" class="form-control form-group" required>
+              <span class="resultErro text-danger d-block text-right"></span>
+              <button type="submit" name="button" class="btn btn-lg btn-primary px-5 d-block ml-auto">Enviar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <%- include('../public/include/preFooter.html') -%>
@@ -30,5 +91,62 @@
   <script src="/libraries/purl/purl.min.js" charset="utf-8"></script>
 
   <script src="/javascripts/root.js" charset="utf-8"></script>
+
+  <script type="text/javascript">
+  function gerarLink(str) {
+    str = str.toLowerCase()
+
+    str = str.replace(/á|à|ã|â|ä/g, 'a')
+    str = str.replace(/é|è|ê|ë/g, 'e')
+    str = str.replace(/í|ì|î|ï/g, 'i')
+    str = str.replace(/ó|ò|õ|ô|ö/g, 'o')
+    str = str.replace(/ú|ù|û|ü/g, 'u')
+    str = str.replace(/ç/g, "c")
+    str = str.replace(/[ ]*$/, "")
+    str = str.replace(/ /g, "_")
+    str = str.replace(/[^a-z0-9_]/g, "")
+
+    return str
+  }
+  function salvaEvento() {
+    var _evento = {
+      "titulo": form.titulo.value,
+      "link": form.link.value,
+      "descricao": form.descricao.value,
+      "uf": form.uf.value,
+      "cidade": form.cidade.value,
+      "localidade": form.localidade.value,
+      "imagem": form.imagem.value,
+      "mapa": form.mapa.value,
+      "status": false,
+      "taxa": 0
+    }
+
+    $.ajax({
+      url: hostApi+'/evento',
+      method: 'post',
+      data: JSON.stringify(_evento),
+      cache: false
+    }).done(function (res) {
+      document.location.href = '/novoevento/'+form.link.value
+    }).fail(function (res) {
+      console.log("Error", res);
+    })
+  }
+
+  (function () {
+    var $titulo = $('#tituloEvento')
+    var $link = $('#linkEvento')
+    $('.btn-nav-novoevento').addClass('active')
+
+    $titulo.on('keyup', function () {
+      var _link = $titulo.val()
+
+      $link.val(gerarLink(_link))
+    })
+
+
+  })()
+  </script>
 </body>
 </html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <%- include('../public/include/head.html') -%>
+</head>
+<body class="bg-page">
+
+  <header class="text-dark">
+    <%- include('../public/include/header.html') -%>
+  </header>
+
+  <section class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-sm-10 col-md-8">
+        <div class="p-3 card card-secondary mt-4">
+          <div class="card-body">
+            <h5 class="mb-0 mb-3">Cadastrar sua conta</h5>
+            <div class="preview-form"></div>
+            <form action="javascript:cadastrar()" name="form" class="row m-0">
+              <input type="text" name="nome" class="form-control border-secondary form-group" placeholder="Nome Completo" required>
+              <input type="text" name="cpf" class="form-control border-secondary form-group" placeholder="CPF" required pattern="^[0-9]{11}?" title="Somente números.">
+              <div class="container-fluid p-0">
+                <div class="form-row">
+                  <div class="col-md-6">
+                    <input type="password" name="senha" class="form-control border-secondary form-group input-senha" placeholder="Senha" required>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="password" name="senha2" class="form-control border-secondary form-group input-senha" placeholder="Confirme a senha" required>
+                  </div>
+                </div>
+              </div>
+              <span>Data de nascimento:</span>
+              <input type="date" name="data_nascimento" class="form-control border-secondary form-group" placeholder="Data de nascimento" required>
+              <div class="container-fluid p-0">
+                <div class="form-row">
+                  <div class="col-6">
+                    <input type="radio" id="masculino" name="sexo" hidden value="masculino" class="radioSexo" required>
+                    <label class="custom-control-label btn btn-outline-secondary d-block btn-radioSexo" for="masculino">Masculino</label>
+                  </div>
+                  <div class="col-6">
+                    <input type="radio" id="feminino" name="sexo" hidden value="feminino" class="radioSexo">
+                    <label class="custom-control-label btn btn-outline-secondary d-block btn-radioSexo" for="feminino">Feminino</label>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" name="button" class="btn btn-primary btn-lg d-block px-5 mt-2 mx-auto">Cadastrar</button>
+            </form>
+          </div>
+        </div>
+
+        <a href="/admin/login" class="btn btn-lg d-block bg-light text-dark py-3 mt-4 font-normal rounder-0">Voltar para o Login</a>
+      </div>
+    </div>
+  </section>
+
+  <%- include('../public/include/preFooter.html') -%>
+
+  <%- include('../public/include/footer.html') -%>
+
+  <!-- JavaScript jquery -->
+  <script src="../libraries/jquery/jquery-3.1.1.min.js" charset="utf-8"></script>
+  <!-- JavaScript popper -->
+  <script src="../libraries/bootstrap_v4/js/popper.min.js" charset="utf-8"></script>
+  <!-- JavaScript bootstrap -->
+  <script src="../libraries/bootstrap_v4/js/bootstrap.min.js" charset="utf-8"></script>
+
+  <script src="../javascripts/root.js" charset="utf-8"></script>
+
+  <script type="text/javascript">
+    $(".radioSexo").on('change', function () {
+      $(".btn-radioSexo").removeClass("btn-secondary").addClass("btn-outline-secondary")
+      $(this).next('.btn-radioSexo').removeClass("btn-outline-secondary").addClass("btn-secondary")
+    })
+
+    $(".input-senha").on('blur', function () {
+      if(form.senha.value && form.senha2.value){
+        if(form.senha.value === form.senha2.value){
+          $(".input-senha").removeClass("border-secondary border-danger").addClass("border-success")
+        }else {
+          $(".input-senha").removeClass("border-secondary boder-success").addClass("border-danger")
+        }
+      }
+    })
+
+    function cadastrar() {
+      if(form.senha.value !== form.senha2.value){
+        $(".preview-form").html("<div class='alert alert-warning' role='alert'><strong>Alerta</strong> Senhas diferentes!</div>")
+        setTimeout(function () {
+          $(".alert").fadeOut("slow","linear",function () {
+            $(this).alert('close')
+          })
+        }, 3000);
+        return false;
+      }
+
+      var _cadastro = {
+        "nome": form.nome.value,
+        "senha": form.senha.value,
+        "cpf": form.cpf.value,
+        "data_nascimento": form.data_nascimento.value,
+        "sexo": form.sexo.value,
+        "ativo": true,
+        "nivel": 3
+      }
+
+      $.ajax({
+        url: hostApi+"/usuario",
+        method: "post",
+        data: JSON.stringify(_cadastro),
+        cache: false
+      }).done(function (res) {
+        $(".preview-form").html("<div class='alert alert-success' role='alert'><strong>Pronto!</strong> Seu cadastro foi criado com sucesso!</div>")
+      }).fail(function (res) {
+        console.log("Error", res);
+      })
+    }
+  </script>
+</body>
+</html>

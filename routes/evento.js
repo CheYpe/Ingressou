@@ -3,7 +3,7 @@ var http = require('http');
 var router = express.Router();
 
 /* GET evento page. */
-router.get('/[a-zA-Z0-9_]+?', function(req, res, next) {
+router.get('/[a-z0-9_]+?', function(req, res, next) {
 
   var _link = req.path.replace('/','');
   http.get('http://api.ingressou.com/v1/evento/'+_link, (resp) => {
@@ -18,13 +18,20 @@ router.get('/[a-zA-Z0-9_]+?', function(req, res, next) {
     // The whole response has been received. Print out the result.
     resp.on('end', () => {
       data = JSON.parse(data)
-      data.titulo_page = data.titulo + ' - Ingressou'
 
-      res.render('evento', data);
+      if(!data.error){
+        data.titulo_page = data.titulo + ' - Ingressou'
+        res.render('evento', data)
+      }else{
+        res.redirect('/');
+      }
+
     });
 
   }).on("error", (err) => {
-    console.log("Error: " + err.message);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
   });
 });
 
