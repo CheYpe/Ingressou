@@ -315,7 +315,8 @@
       $titulo.text(res.titulo)
       exibirPeriodo(res.periodos, $listP)
     }).fail(function (res) {
-      console.log("Error", res);
+      console.log("Error", res.responseJSON);
+      $(".card-body").prepend("<div class='alert alert-warning' role='alert'><strong>Alerta!</strong> Nenhum evento foi encontrado.</div>")
     })
   })()
   </script>

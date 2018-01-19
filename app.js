@@ -25,7 +25,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/admin', admin);
-app.use('/contato', index);
 app.use('/evento', evento);
 
 // catch 404 and forward to error handler
@@ -43,7 +42,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error', { titulo_page: 'Error - Ingressou', imagem: 'http://ingressou.com/images/perfil.jpg' });
 });
 
 module.exports = app;

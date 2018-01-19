@@ -1,28 +1,13 @@
 @import "../libraries/animate/animate.min.css";
 
-/* Colors */
-/*.text-primary { color: #004B79 !important }
-.text-secondary { color: #EA8258 !important }
-.text-info { color: #007AC5 !important }
-.text-warning { color: #FFAC6B !important }
-.text-light { color: #FAFAFC !important }
-.text-write { color: #FFF !important }
-.text-dark { color: #404040 !important }
 
-.bg-primary { background-color: #004B79 !important }
-.bg-secondary { background-color: #EA8258 !important }
-.bg-info { background-color: #007AC5 !important }
-.bg-warning { background-color: #FFAC6B !important }
-.bg-dark { background-color: #404040 !important }
-.bg-light { background-color: #FAFAFC !important }
-.bg-write { background-color: #FFF !important }
-.bg-transparente { background-color: transparent !important }
-*/
+/* Root */
 .bg-page {
   background-color: #27292c !important
 }
-
-/* Root */
+.no-bg {
+  background: none !important
+}
 body {
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
@@ -52,6 +37,16 @@ h1, h2, h3, h4, h5, h6 {
 button, input {
   box-shadow: none !important;
   outline: none !important;
+}
+.cursor-wait {
+  cursor: wait;
+}
+.body-page {
+  min-height: 500px
+}
+#navbarMenu a.btn.active {
+  box-shadow: none !important;
+  color: #fff
 }
 
 /* Estilos */

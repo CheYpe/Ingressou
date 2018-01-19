@@ -110,16 +110,16 @@
   }
   function salvaEvento() {
     var _evento = {
-      "titulo": form.titulo.value,
-      "link": form.link.value,
-      "descricao": form.descricao.value,
-      "uf": form.uf.value,
-      "cidade": form.cidade.value,
+      "titulo":     form.titulo.value,
+      "link":       form.link.value,
+      "descricao":  form.descricao.value,
+      "uf":         form.uf.value,
+      "cidade":     form.cidade.value,
       "localidade": form.localidade.value,
-      "imagem": form.imagem.value,
-      "mapa": form.mapa.value,
-      "status": false,
-      "taxa": 0
+      "imagem":     form.imagem.value,
+      "mapa":       form.mapa.value,
+      "status":     false,
+      "taxa":       0
     }
 
     $.ajax({
@@ -128,7 +128,7 @@
       data: JSON.stringify(_evento),
       cache: false
     }).done(function (res) {
-      document.location.href = '/novoevento/'+form.link.value
+      document.location.href = '/novoevento/'+res.id
     }).fail(function (res) {
       console.log("Error", res);
     })
@@ -144,7 +144,6 @@
 
       $link.val(gerarLink(_link))
     })
-
 
   })()
   </script>

@@ -18,7 +18,7 @@
             <form action="javascript:logar()" name="form" class="row m-0">
               <input type="text" name="cpf" value="05725430340" class="form-control form-control-lg border-secondary form-group" placeholder="CPF" required pattern="^[0-9]{11}?" title="Somente números.">
               <input type="password" name="senha" value="123456" class="form-control form-control-lg border-secondary form-group" placeholder="Senha">
-              <button type="button" name="button" class="btn bg-write text-danger px-0 float-left d-none d-lg-block">Esqueci minha senha!</button>
+              <button type="button" name="button" class="btn bg-white text-danger px-0 float-left d-none d-lg-block">Esqueci minha senha!</button>
               <button type="submit" name="button" class="btn btn-secondary px-5 ml-auto">Entrar</button>
             </form>
             <button type="button" name="button" class="btn text-danger bg-transparent px-sm-5 pb-sm-3 mt-3 mx-auto d-block d-lg-none">Esqueci minha senha!</button>
@@ -51,16 +51,31 @@
     }
 
     $.ajax({
-      url: "./login",
+      url: hostApi+"/login",
       method: "post",
       cache: false,
       data: _login
     }).done(function (res) {
       console.log("Sucesso", res);
     }).fail(function (res) {
-      console.log("Error", res.responseJ);
+      console.log("Error", res.responseJSON);
     })
+
   }
+
+
+
+  $.ajax({
+    url: hostApi+'/login',
+    xhrFields: {
+      withCredentials: true
+   }
+ }).done(function (res) {
+   console.log('sucesso', res);
+ }).fail(function (res) {
+   console.log('error', res);
+ })
+
   </script>
 </body>
 </html>

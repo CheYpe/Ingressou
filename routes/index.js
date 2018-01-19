@@ -17,7 +17,7 @@ router.get('/novoevento', function(req, res, next) {
 });
 
 /* GET new event page. */
-router.get('/novoevento/[a-z0-9_]+?', function(req, res, next) {
+router.get('/novoevento/[0-9]+?', function(req, res, next) {
   var _link = req.path.replace('/novoevento/','');
   res.render('infoevento', { titulo_page: 'Informações do Evento - Ingressou', imagem: 'http://ingressou.com/images/perfil.jpg', link: _link });
 });

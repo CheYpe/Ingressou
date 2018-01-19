@@ -3,8 +3,18 @@ var http = require('http');
 var router = express.Router();
 
 /* GET login page. */
+router.get('/perfil', function(req, res, next) {
+  res.render('painelPerfil', { titulo_page: 'Ingressou - Perfil', imagem: 'http://ingressou.com/images/perfil.jpg' });
+});
+
+/* GET login page. */
 router.get('/login', function(req, res, next) {
-  res.render('login', { titulo_page: 'Ingressou - Login', imagem: 'http://ingressou.com/images/perfil.jpg' });
+  res.render('painelLogin', { titulo_page: 'Ingressou - Login', imagem: 'http://ingressou.com/images/perfil.jpg' });
+});
+
+/* GET login page. */
+router.get('/pedidos', function(req, res, next) {
+  res.render('painelPedidos', { titulo_page: 'Ingressou - Pedidos', imagem: 'http://ingressou.com/images/perfil.jpg' });
 });
 
 /* POST login page. */

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <%- include('../public/include/head.html') -%>
+</head>
+<body class="bg-page">
+
+  <header class="text-dark">
+    <%- include('../public/include/header.html') -%>
+  </header>
+
+  <div class="container body-page">
+    <div class="row py-5">
+      <aside class="col-3">
+        <%- include('../public/include/asidePainel.html') -%>
+      </aside>
+
+      <section class="col-9">
+        <div class="card">
+          <div class="card-body">
+            <form action="javascript:editUser()" name="form">
+              <h3 class="mb-3">Meu perfil</h3>
+
+              <span><strong>Nome completo:</strong></span>
+              <input type="text" name="nome" class="form-control form-group">
+              <span><strong>CPF:</strong></span>
+              <input type="text" name="cpf" class="form-control form-group">
+              <span><strong>Email:</strong></span>
+              <div class="input-group form-group">
+                <input type="email" name="email" class="form-control border-right-0">
+                <div class="input-group-append">
+                  <span class="input-group-text no-bg text-success"><span class="mdi mdi-check"></span></span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="col-md-6">
+                  <span><strong>Celular:</strong></span>
+                  <input type="text" name="telefone_principal" class="form-control form-group">
+                </div>
+                <div class="col-md-6">
+                  <span><strong>Telefone:</strong></span>
+                  <input type="text" name="telefone_secundario" class="form-control form-group">
+                </div>
+              </div>
+
+              <h5 class="mt-4">Outras informações</h5>
+
+              <div class="form-row">
+                <div class="col-md-6">
+                  <span><strong>Data de Nascimento:</strong></span>
+                  <input type="date" name="data_nascimento" class="form-control form-group" style="height: 38px">
+                </div>
+                <div class="col-md-6">
+                  <span><strong>Sexo:</strong></span>
+                  <select name="seno" class="form-control form-group">
+                    <option value="masculino">Masculino</option>
+                    <option value="feminino">Feminino</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="col-md-5">
+                  <span><strong>Cidade:</strong></span>
+                  <input type="text" name="cidade" class="form-control form-group">
+                </div>
+                <div class="col-md-4">
+                  <span><strong>Bairro:</strong></span>
+                  <input type="text" name="bairro" class="form-control form-group">
+                </div>
+                <div class="col-md-3">
+                  <span><strong>CEP:</strong></span>
+                  <input type="text" name="cep" class="form-control form-group">
+                </div>
+              </div>
+
+              <span><strong>Endereço:</strong></span>
+              <input type="text" name="endereco" class="form-control form-group">
+              <span><strong>Complemento:</strong></span>
+              <input type="text" name="complemento" class="form-control form-group">
+              <span><strong>Referência:</strong></span>
+              <input type="text" name="referencia" class="form-control form-group">
+
+              <input type="submit" name="" value="Salvar" class="btn btn-primary px-4 float-right">
+              <a class="btn text-danger px-4 float-right">Excluir conta</a>
+
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <%- include('../public/include/preFooter.html') -%>
+
+  <%- include('../public/include/footer.html') -%>
+
+  <!-- JavaScript jquery -->
+  <script src="../libraries/jquery/jquery-3.1.1.min.js" charset="utf-8"></script>
+  <!-- JavaScript popper -->
+  <script src="../libraries/bootstrap_v4/js/popper.min.js" charset="utf-8"></script>
+  <!-- JavaScript bootstrap -->
+  <script src="../libraries/bootstrap_v4/js/bootstrap.min.js" charset="utf-8"></script>
+
+  <script src="../javascripts/root.js" charset="utf-8"></script>
+
+  <script type="text/javascript">
+  (function () {
+    $(".btn-painelNav-perfil").removeClass("text-light").addClass("text-primary")
+  })()
+  </script>
+</body>
+</html>

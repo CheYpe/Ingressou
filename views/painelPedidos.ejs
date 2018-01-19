@@ -9,11 +9,21 @@
     <%- include('../public/include/header.html') -%>
   </header>
 
-  <section class="container body-page">
-    <h2 class="text-light text-center pt-5">Página não encontrada!</h2>
-    <p class="text-light text-center">Não encontramos o link que está procurando, vá para a página principal e procure pelo seu evento preferido.</p>
-    <button class="btn btn-primary btn-lg d-block px-4 mt-4 mx-auto" onclick="window.location.replace('/')">Voltar à página principal</button>
-  </section>
+  <div class="container body-page">
+    <div class="row py-5">
+      <aside class="col-3">
+        <%- include('../public/include/asidePainel.html') -%>
+      </aside>
+
+      <section class="col-9">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
 
   <%- include('../public/include/preFooter.html') -%>
 
@@ -25,5 +35,14 @@
   <script src="../libraries/bootstrap_v4/js/popper.min.js" charset="utf-8"></script>
   <!-- JavaScript bootstrap -->
   <script src="../libraries/bootstrap_v4/js/bootstrap.min.js" charset="utf-8"></script>
+
+  <script src="../javascripts/root.js" charset="utf-8"></script>
+
+  <script type="text/javascript">
+  (function () {
+    $(".btn-nav-pedidos").addClass("active")
+    $(".btn-painelNav-pedidos").removeClass("text-light").addClass("text-primary")
+  })()
+  </script>
 </body>
 </html>
