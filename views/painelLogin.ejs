@@ -2,22 +2,55 @@
 <html lang="pt-br">
 <head>
   <%- include('../public/include/head.html') -%>
+
+  <link rel="stylesheet" href="/libraries/animate/animate.min.css">
 </head>
 <body class="bg-page">
 
-  <header class="text-dark">
-    <%- include('../public/include/header.html') -%>
-  </header>
+  <section class="container h-100">
+    <div class="row align-items-center justify-content-center" style="height: 100vh">
+      <div class="col-md-5">
+        <img src="/images/logo_branca.png" alt="logo branca da ingressou" class="d-block mx-auto w-50" />
 
-  <section class="container my-5">
+        <div id="loading-eventos" class="text-center mt-5">
+          <p class="text-light" style="font-size: 1.5em"><img src="/images/spin.svg" alt="" height="50" width="50" class="mb-1"></p>
+        </div>
+
+        <div id="box-login" class="d-none">
+          <form action="javascript:logar()" name="form" class="mt-5 pt-5 mb-3 form-login">
+            <div class="border-top-login p-2 pb-3">
+              <span class="text-light m-0">CPF</span>
+              <input type="text" name="cpf" value="" class="cpf form-control form-control-sm border-0 no-bg text-light" placeholder="000.000.000-00" autocomplete="off" autofocus>
+            </div>
+            <div class="border-top-login p-2 pb-3">
+              <span class="text-light m-0">SENHA</span>
+              <div class="input-group mb-3">
+                <input type="password" name="senha" class="form-control form-control-sm border-0 no-bg text-light" placeholder="Digite sua senha aqui">
+                <div class="input-group-append">
+                  <button class="btn border-0 rounded no-bg" type="button"> <span class="mdi mdi-help text-light"></span> </button>
+                </div>
+              </div>
+            </div>
+            <input type="submit" name="" value="LOGIN" class="btn d-block w-100 border-0 p-2 font-bold" style="background-color: #f8f9fa99">
+          </form>
+          <div class="d-flex justify-content-between">
+            <a href="/" class="text-light font-80" style="text-decoration: none"><span class="mdi mdi-chevron-left"></span> Página Principal</a>
+            <a href="/admin/cadastro" class="text-light font-80" style="text-decoration: none">Não tem Login? <span class="mdi mdi-chevron-right"></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- <section class="container my-5">
     <div class="row justify-content-center">
       <div class="col-sm-10 col-md-6">
         <div class="p-3 card card-secondary mt-4">
           <div class="card-body">
             <h5 class="mb-0 mb-3">Acessar Conta</h5>
             <form action="javascript:logar()" name="form" class="row m-0">
-              <input type="text" name="cpf" value="05725430340" class="form-control form-control-lg border-secondary form-group" placeholder="CPF" required pattern="^[0-9]{11}?" title="Somente números.">
-              <input type="password" name="senha" value="123456" class="form-control form-control-lg border-secondary form-group" placeholder="Senha">
+              <input type="text" name="cpf" value="" class="form-control form-control-lg border-secondary form-group" placeholder="CPF" required title="Somente números.">
+              <input type="password" name="senha" value="" class="form-control form-control-lg border-secondary form-group" placeholder="Senha">
               <button type="button" name="button" class="btn bg-white text-danger px-0 float-left d-none d-lg-block">Esqueci minha senha!</button>
               <button type="submit" name="button" class="btn btn-secondary px-5 ml-auto">Entrar</button>
             </form>
@@ -28,11 +61,7 @@
         <a href="/admin/cadastro" class="btn btn-lg d-block bg-light text-dark py-3 mt-4 font-normal rounder-0">Quero me cadastrar</a>
       </div>
     </div>
-  </section>
-
-  <%- include('../public/include/preFooter.html') -%>
-
-  <%- include('../public/include/footer.html') -%>
+  </section> -->
 
   <!-- JavaScript jquery -->
   <script src="../libraries/jquery/jquery-3.1.1.min.js" charset="utf-8"></script>
@@ -41,9 +70,12 @@
   <!-- JavaScript bootstrap -->
   <script src="../libraries/bootstrap_v4/js/bootstrap.min.js" charset="utf-8"></script>
 
+  <script src="../libraries/jquery/jquery.mask.min.js" charset="utf-8"></script>
   <script src="../javascripts/root.js" charset="utf-8"></script>
 
   <script type="text/javascript">
+  var $cardBody = $(".form-login")
+
   function logar() {
     var _login = {
       "cpf": form.cpf.value,
@@ -54,28 +86,39 @@
       url: hostApi+"/login",
       method: "post",
       cache: false,
-      data: _login
+      data: JSON.stringify(_login),
+      crossDomain: true,
+      xhrFields: {
+        withCredentials: true
+      }
     }).done(function (res) {
-      console.log("Sucesso", res);
+      document.location.href = '/admin/perfil'
     }).fail(function (res) {
-      console.log("Error", res.responseJSON);
+      $cardBody.prepend("<div class='alert alert-danger border-0 animated fadeInDown' role='alert'><strong>Erro!</strong> "+res.responseJSON.error.msg+"</div>")
+      setTimeout(function () {
+        $(".alert").remove()
+      }, 5000);
     })
-
   }
 
+  (function () {
+    $('.cpf').mask('000.000.000-00')
 
-
-  $.ajax({
-    url: hostApi+'/login',
-    xhrFields: {
-      withCredentials: true
-   }
- }).done(function (res) {
-   console.log('sucesso', res);
- }).fail(function (res) {
-   console.log('error', res);
- })
-
+    $.ajax({
+      url: hostApi+"/check",
+      method: "get",
+      cache: false,
+      crossDomain: true,
+      xhrFields: {
+        withCredentials: true
+      }
+    }).done(function (res) {
+      document.location.href = '/admin/perfil'
+    }).fail(function (res) {
+      $('#loading-eventos').remove()
+      $('#box-login').removeClass('d-none')
+    })
+  })()
   </script>
 </body>
 </html>

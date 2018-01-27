@@ -17,21 +17,25 @@ var dir = (function(my) {
     return "<li class='p-2'><span class='d-block data'>"+moment.utc(obj.data_periodo).format('DD/MM')+"</span><span class='d-block semana text-lowercase'>"+moment.utc(obj.data_periodo).format('ddd')+"</span></li>"
   }
 
+  my.atracoesDia = function (obj) {
+    return "<div class='p-3 mt-2 atracoesDia'><h6 class='font-120'>Atrações desse dia:</h6><p class='text-justify'>"+obj.atracao+"</p></div>"
+  }
+
   my.detalhesIngresso = function (obj) {
-    var _res = "<li><div class='row justify-content-center pt-4 pb-2 px-4 text-light'><div class='col-lg-5'><h5>Atrações:</h5><p class='font-light'>"+obj.atracao+"</p></div><div class='col-lg-7 qtdIngressos'><!--<h5>Entradas e Valores:</h5>-->"
-
-    if(obj.categorias){
-      obj.categorias.forEach(function (elem) {
-        _res += qtdIngressos(elem)
-        elem.quantidade = 0
-        elem.data = obj.data
-        my.ingressos.push(elem)
-      })
-    }
-
-    _res += "</div></div></li>"
-
-    return _res
+    // var _res = "<li><div class='row justify-content-center pt-4 pb-2 px-4 text-light'><div class='col-lg-5'><h5>Atrações do Dia:</h5><p class='font-light'>"+obj.atracao+"</p></div><div class='col-lg-7 qtdIngressos'>"
+    //
+    // if(obj.categorias){
+    //   obj.categorias.forEach(function (elem) {
+    //     _res += qtdIngressos(elem)
+    //     elem.quantidade = 0
+    //     elem.data = obj.data
+    //     my.ingressos.push(elem)
+    //   })
+    // }
+    //
+    // _res += "</div></div></li>"
+    //
+    // return _res
   }
 
   return my

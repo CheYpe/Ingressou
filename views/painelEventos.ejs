@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <%- include('../public/include/head.html') -%>
+
+  <link rel="stylesheet" href="/libraries/bootstrap_v4/css/bootstrap-toggle.min.css">
+</head>
+<body class="bg-page">
+
+  <header class="text-dark">
+    <%- include('../public/include/header.html') -%>
+  </header>
+
+  <div class="container body-page">
+    <div class="row py-5">
+      <aside class="col-3">
+        <%- include('../public/include/asidePainel.html') -%>
+      </aside>
+
+      <section class="col-9">
+        <div class="p-3 card">
+          <div class="card-body">
+            <h3 class="mb-3">Meu perfil</h3>
+
+            <table class="table teble-s">
+              <thead class="thead-light">
+                <tr>
+                  <th class="w-50">Titulo</th>
+                  <th class="text-center">Data</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="3" class="text-center">Nenhum eventos encontrado</td>
+                </tr>
+                <tr>
+                  <td>Novo evento</td>
+                  <td class='text-center'>um periodo</td>
+                  <td>
+                    <input type="checkbox" data-toggle="toggle" data-size="mini">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <%- include('../public/include/preFooter.html') -%>
+
+  <%- include('../public/include/footer.html') -%>
+
+  <!-- JavaScript jquery -->
+  <script src="../libraries/jquery/jquery-3.1.1.min.js" charset="utf-8"></script>
+  <!-- JavaScript popper -->
+  <script src="../libraries/bootstrap_v4/js/popper.min.js" charset="utf-8"></script>
+  <!-- JavaScript bootstrap -->
+  <script src="../libraries/bootstrap_v4/js/bootstrap.min.js" charset="utf-8"></script>
+
+  <script src="../libraries/bootstrap_v4/js/bootstrap.toggle.min.js" charset="utf-8"></script>
+  <script src="../javascripts/root.js" charset="utf-8"></script>
+
+  <script type="text/javascript">
+  (function () {
+    $(".btn-nav-pedidos").addClass("active")
+    $(".btn-painelNav-pedidos").removeClass("text-light").addClass("text-primary")
+  })()
+  </script>
+</body>
+</html>

@@ -16,7 +16,7 @@
       </aside>
 
       <section class="col-9">
-        <div class="card">
+        <div class="p-3 card">
           <div class="card-body">
             <form action="javascript:editUser()" name="form">
               <h3 class="mb-3">Meu perfil</h3>
@@ -29,18 +29,18 @@
               <div class="input-group form-group">
                 <input type="email" name="email" class="form-control border-right-0">
                 <div class="input-group-append">
-                  <span class="input-group-text no-bg text-success"><span class="mdi mdi-check"></span></span>
+                  <span class="input-group-text no-bg text-danger statusEmail"><span class="mdi mdi-close"></span></span>
                 </div>
               </div>
 
               <div class="form-row">
                 <div class="col-md-6">
                   <span><strong>Celular:</strong></span>
-                  <input type="text" name="telefone_principal" class="form-control form-group">
+                  <input type="text" name="celular" class="form-control form-group">
                 </div>
                 <div class="col-md-6">
                   <span><strong>Telefone:</strong></span>
-                  <input type="text" name="telefone_secundario" class="form-control form-group">
+                  <input type="text" name="telefone" class="form-control form-group">
                 </div>
               </div>
 
@@ -53,7 +53,7 @@
                 </div>
                 <div class="col-md-6">
                   <span><strong>Sexo:</strong></span>
-                  <select name="seno" class="form-control form-group">
+                  <select name="sexo" class="form-control form-group">
                     <option value="masculino">Masculino</option>
                     <option value="feminino">Feminino</option>
                   </select>
@@ -106,8 +106,42 @@
   <script src="../javascripts/root.js" charset="utf-8"></script>
 
   <script type="text/javascript">
+  function povoaForm(perfil) {
+    form.nome.value = perfil.nome
+    form.cpf.value = perfil.cpf
+    form.email.value = perfil.email
+    form.celular.value = perfil.celular
+    form.telefone.value = perfil.telefone
+    form.data_nascimento.value = perfil.data_nascimento
+    form.sexo.value = perfil.sexo
+    form.cidade.value = perfil.cidade
+    form.bairro.value = perfil.bairro
+    form.cep.value = perfil.cep
+    form.endereco.value = perfil.endereco
+    form.complemento.value = perfil.complemento
+    form.referencia.value = perfil.referencia
+  }
+
   (function () {
     $(".btn-painelNav-perfil").removeClass("text-light").addClass("text-primary")
+    var $statusEmail = $(".statusEmail")
+
+    $.ajax({
+      url: hostApi+"/usuario/perfil",
+      crossDomain: true,
+      xhrFields: {
+        withCredentials: true
+      }
+    }).done(function (res) {
+      povoaForm(res)
+
+      if (res.status_email) {
+        $statusEmail.removeClass("text-danger").addClass("text-success")
+        $statusEmail.find('.mdi').removeClass("mdi-close").addClass("mdi-check")
+      }
+    }).fail(function (res) {
+      console.log("Error", res.responseJSON);
+    })
   })()
   </script>
 </body>

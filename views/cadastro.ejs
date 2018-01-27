@@ -17,32 +17,39 @@
             <h5 class="mb-0 mb-3">Cadastrar sua conta</h5>
             <div class="preview-form"></div>
             <form action="javascript:cadastrar()" name="form" class="row m-0">
-              <input type="text" name="nome" class="form-control border-secondary form-group" placeholder="Nome Completo" required>
-              <input type="text" name="cpf" class="form-control border-secondary form-group" placeholder="CPF" required pattern="^[0-9]{11}?" title="Somente números.">
+              <span><strong>Nome completo:</strong></span>
+              <input type="text" name="nome" class="form-control form-group" required>
+              <span><strong>CPF:</strong></span>
+              <input type="text" name="cpf" class="cpf form-control form-group" required>
+              <span><strong>Email:</strong></span>
+              <input type="email" name="email" class="form-control form-group" required>
+
               <div class="container-fluid p-0">
                 <div class="form-row">
                   <div class="col-md-6">
-                    <input type="password" name="senha" class="form-control border-secondary form-group input-senha" placeholder="Senha" required>
+                    <span><strong>Celular:</strong></span>
+                    <input type="text" name="celular" class="celular form-control form-group" required>
                   </div>
                   <div class="col-md-6">
-                    <input type="password" name="senha2" class="form-control border-secondary form-group input-senha" placeholder="Confirme a senha" required>
+                    <span><strong>Telefone:</strong></span>
+                    <input type="text" name="telefone" class="celular form-control form-group">
                   </div>
                 </div>
               </div>
-              <span>Data de nascimento:</span>
-              <input type="date" name="data_nascimento" class="form-control border-secondary form-group" placeholder="Data de nascimento" required>
+
               <div class="container-fluid p-0">
                 <div class="form-row">
-                  <div class="col-6">
-                    <input type="radio" id="masculino" name="sexo" hidden value="masculino" class="radioSexo" required>
-                    <label class="btn btn-outline-secondary d-block btn-radioSexo" for="masculino">Masculino</label>
+                  <div class="col-md-6">
+                    <span><strong>Senha:</strong></span>
+                    <input type="password" name="senha" class="form-control form-group input-senha" required>
                   </div>
-                  <div class="col-6">
-                    <input type="radio" id="feminino" name="sexo" hidden value="feminino" class="radioSexo">
-                    <label class="btn btn-outline-secondary d-block btn-radioSexo" for="feminino">Feminino</label>
+                  <div class="col-md-6">
+                    <span><strong>Confirmar senha:</strong></span>
+                    <input type="password" name="senha2" class="form-control form-group input-senha" required>
                   </div>
                 </div>
               </div>
+
               <button type="submit" name="button" class="btn btn-primary btn-lg d-block px-5 mt-2 mx-auto">Cadastrar</button>
             </form>
           </div>
@@ -64,6 +71,7 @@
   <!-- JavaScript bootstrap -->
   <script src="../libraries/bootstrap_v4/js/bootstrap.min.js" charset="utf-8"></script>
 
+  <script src="../libraries/jquery/jquery.mask.min.js" charset="utf-8"></script>
   <script src="../javascripts/root.js" charset="utf-8"></script>
 
   <script type="text/javascript">
@@ -95,12 +103,11 @@
 
       var _cadastro = {
         "nome": form.nome.value,
-        "senha": form.senha.value,
         "cpf": form.cpf.value,
-        "data_nascimento": form.data_nascimento.value,
-        "sexo": form.sexo.value,
-        "ativo": true,
-        "nivel": 3
+        "email": form.email.value,
+        "celular": form.celular.value,
+        "telefone": form.telefone.value ? form.telefone.value : null,
+        "senha": form.senha.value
       }
 
       $.ajax({
@@ -109,11 +116,25 @@
         data: JSON.stringify(_cadastro),
         cache: false
       }).done(function (res) {
-        $(".preview-form").html("<div class='alert alert-success' role='alert'><strong>Pronto!</strong> Seu cadastro foi criado com sucesso!</div>")
+        $(".preview-form").html("<div class='alert alert-success' role='alert'><strong>Tudo Pronto!</strong> Ative seu cadastro pelo email!</div>")
       }).fail(function (res) {
         console.log("Error", res);
       })
     }
+
+    (function () {
+      var SPMaskBehavior = function (val) {
+        return val.replace(/\D/g, '').length === 11 ? '(00) 0 0000-0000' : '(00) 0000-000099';
+      },
+      spOptions = {
+        onKeyPress: function(val, e, field, options) {
+          field.mask(SPMaskBehavior.apply({}, arguments), options);
+        }
+      };
+
+      $('.cpf').mask('000.000.000-00');
+      $('.celular').mask(SPMaskBehavior, spOptions);
+    })()
   </script>
 </body>
 </html>

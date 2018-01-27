@@ -144,7 +144,7 @@ header {
   content: "\F34E";
   position: absolute;
   right: 15px;
-  color: #FFAC6B !important;
+  color: #ffc107 !important;
   font: normal normal normal 24px/1 "Material Design Icons";
   font-size: inherit;
   text-rendering: auto;
@@ -160,7 +160,7 @@ header {
   content: "\F142";
   position: absolute;
   right: 15px;
-  color: #FFAC6B !important;
+  color: #ffc107 !important;
   font: normal normal normal 24px/1 "Material Design Icons";
   font-size: inherit;
   text-rendering: auto;
@@ -204,7 +204,8 @@ footer {
 
 .slide-date-ingressos {
   position: relative;
-  height: 100%;
+  border-top: 1px solid #ffffff73;
+  border-bottom: 1px solid #ffffff73;
   background: transparent;
 }
 .slide-date-ingressos button {
@@ -227,7 +228,6 @@ footer {
   margin: 0;
 }
 .slide-date-ingressos ul li.active {
-  border-bottom: 1px solid #EA8258;
   color: #EA8258;
 }
 .slide-date-ingressos ul li {
@@ -248,20 +248,54 @@ footer {
   font-size: 28px;
   margin-bottom: 10px;
 }
-.box-tipo-ingressos ul {
-  list-style: none;
-  overflow: hidden;
-}
-.box-tipo-ingressos {
-  height: 100%;
-}
-.box-tipo-ingressos ul li {
+#detalhesIngresso .atracoesDia {
   display: none;
 }
-.box-tipo-ingressos ul li.active {
+#detalhesIngresso .atracoesDia.active {
   display: block;
 }
 
+.border-top-login {
+  border-top: 1px solid #ffffff73;
+}
+
+.fotos-insta ul {
+  list-style: none
+}
+.fotos-insta ul li {
+  margin: 0 10px 0 10px;
+}
+.fotos-insta ul li figure {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.fotos-insta ul li figure:hover::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #ffffffb1;
+  animation: fadeInUp 0.3s;
+}
+.fotos-insta ul li:first-child {
+  margin-left: 0px
+}
+.fotos-insta ul li:last-child {
+  margin-right: 0px
+}
+.fotos-insta img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  margin: auto
+}
 
 /* Responsividade */
 @media (min-width: 576px) {}

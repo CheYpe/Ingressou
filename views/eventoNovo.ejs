@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <%- include('../public/include/head.html') -%>
+</head>
+<body class="bg-page">
+  <!-- Seu site -->
+  <header class="text-dark">
+    <%- include('../public/include/header.html') -%>
+  </header>
+
+  <section class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="p-3 card card-secondary mt-4">
+          <div class="card-body">
+            <h5 class="mb-1">Dê mais visibilidade ao seu evento</h5>
+            <p class="mb-4">Adicione automaticamente seu evento clicando na foto relacionada ao mesmo.</p>
+
+            <div class="fotos-insta">
+              <ul class="mx-0 mt-2 mb-4 p-0">
+              </ul>
+            </div>
+
+            <div class="localizacao row justify-content-center d-none">
+              <div class="col-md-8">
+                <h6>Busque o local do evento</h6>
+                <form action="javascript:buscaLocazacao()" name="formLocalizacao">
+                  <input type="text" name="local" value="" class="form-group form-control">
+                </form>
+                <div class="list-group lista">
+                </div>
+                <div id="map" class="d-none"></div>
+              </div>
+            </div>
+
+            <form  action="javascript:salvaEvento()" method="post" name="form" class="form-novoevento d-none">
+              <input id="tituloEvento" type="text" name="titulo" placeholder="Titulo do evento" class="form-control form-group" required autocomplete="off">
+              <input id="linkEvento" type="text" name="link" placeholder="Link do evento" class="form-control form-group" required disabled>
+
+              <!-- <input id="upLoadImg"type="file" name="" value="" class="form-control form-group d-none">
+              <label for="upLoadImg" class="btn btn-outline-secondary d-block form-group text-truncate">Carrege uma imagem para o evento</label> -->
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <textarea name="descricao" rows="3" class="form-control form-group" placeholder="Escreva a descrição aqui" required style="height: calc(100% - 16px)"></textarea>
+                </div>
+                <div class="col-sm-6">
+                  <select class="form-control form-group" name="uf" required>
+                    <option value="">Estado do evento</option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Rorâima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                  </select>
+                  <input type="text" name="cidade" placeholder="Cidade do evento" class="form-control form-group" required>
+                  <input type="text" name="localidade" placeholder="Local do evento" class="form-control form-group" required>
+                </div>
+              </div>
+
+              <input type="text" name="imagem" placeholder="Link da imagem do evento" class="form-control form-group" required>
+              <input type="text" name="mapa" placeholder="Link do mapa do evento" class="form-control form-group" required>
+              <span class="resultErro text-danger d-block text-right"></span>
+              <button type="submit" name="button" class="btn btn-primary px-5 d-block ml-auto">Salvar evento</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <%- include('../public/include/preFooter.html') -%>
+
+  <%- include('../public/include/footer.html') -%>
+
+
+  <!-- JavaScript jquery -->
+  <script src="/libraries/jquery/jquery-3.1.1.min.js" charset="utf-8"></script>
+  <!-- JavaScript popper -->
+  <script src="/libraries/bootstrap_v4/js/popper.min.js" charset="utf-8"></script>
+  <!-- JavaScript bootstrap -->
+  <script src="/libraries/bootstrap_v4/js/bootstrap.min.js" charset="utf-8"></script>
+  <script src="/libraries/purl/purl.min.js" charset="utf-8"></script>
+  <!-- Sly Slide -->
+  <script src="/libraries/sly/sly.min.js" charset="utf-8"></script>
+
+  <script src="/javascripts/root.js" charset="utf-8"></script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6H-uk_78TDD_sRp-EyZd64Es1qlCuUqs&libraries=places"></script>
+
+  <script type="text/javascript">
+  function gerarLink(str) {
+    str = str.toLowerCase()
+
+    str = str.replace(/á|à|ã|â|ä/g, 'a')
+    str = str.replace(/é|è|ê|ë/g, 'e')
+    str = str.replace(/í|ì|î|ï/g, 'i')
+    str = str.replace(/ó|ò|õ|ô|ö/g, 'o')
+    str = str.replace(/ú|ù|û|ü/g, 'u')
+    str = str.replace(/ç/g, "c")
+    str = str.replace(/[ ]*$/, "")
+    str = str.replace(/ /g, "_")
+    str = str.replace(/[^a-z0-9_]/g, "")
+
+    return str
+  }
+
+  function salvaEvento() {
+    var _evento = {
+      "titulo":     form.titulo.value,
+      "link":       form.link.value,
+      "descricao":  form.descricao.value,
+      "uf":         form.uf.value,
+      "cidade":     form.cidade.value,
+      "localidade": form.localidade.value,
+      "imagem":     form.imagem.value,
+      "mapa":       form.mapa.value,
+      "status":     true,
+      "taxa":       0
+    }
+
+    $.ajax({
+      url: hostApi+'/evento',
+      method: 'post',
+      data: JSON.stringify(_evento),
+      cache: false,
+      crossDomain: true,
+      xhrFields: {
+        withCredentials: true
+      }
+    }).done(function (res) {
+      document.location.href = '/novoevento/'+res.id
+    }).fail(function (res) {
+      console.log("Error", res);
+    })
+  }
+
+  function mostrarFotos(arrFotos, preview, callback) {
+    arrFotos.forEach(function (elem, i, arr) {
+      preview.append("<li class='d-inline-block p-0'><figure><img src="+elem.images.thumbnail.url+"></figure></li>")
+
+      if(i == arr.length-1){
+        callback()
+      }
+    })
+  }
+
+  function ativaLocalizacao(local) {
+    formLocalizacao.local.value = local ? local.name : ""
+    if (local) {
+      getLocais(local.name, function (arrLocais) {
+        $('.localizacao .lista').text("")
+        listarLocais(arrLocais, $('.localizacao .lista'))
+      })
+    }
+    $('.localizacao').removeClass('d-none')
+  }
+
+  function buscaLocazacao() {
+    getLocais(formLocalizacao.local.value, function (arrLocais) {
+      $('.localizacao .lista').text("")
+      listarLocais(arrLocais, $('.localizacao .lista'))
+    })
+  }
+
+  function getLocais(nome, callback) {
+    var service = new google.maps.places.AutocompleteService();
+
+    service.getQueryPredictions({ input: nome }, function(predictions, status){
+      callback(predictions)
+    });
+  }
+
+  function getDetalhes(localId) {
+    var map = new google.maps.Map(document.getElementById('map'));
+    var service = new google.maps.places.PlacesService(map);
+    service.getDetails({placeId: localId}, function (res) {
+      $('.fotos-insta').remove()
+      $('.localizacao').remove()
+
+      $('.form-novoevento').removeClass('d-none')
+
+      form.mapa.value = res.url
+      form.localidade.value = res.name
+
+      res.address_components.forEach(function (elem, i, arr) {
+        arrEstados = ["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"]
+
+        for(f=0; f < arrEstados.length; f++){
+          if(elem.short_name == arrEstados[f]){
+            form.uf.value = elem.short_name
+            form.cidade.value = arr[i-1].long_name
+          }
+        }
+      })
+    })
+  }
+
+  function listarLocais(arrLocais, preview) {
+    arrLocais.forEach(function (elem) {
+      preview.append("<a href='javascript:getDetalhes(\""+elem.place_id+"\")' class='list-group-item text-dark'>"+elem.description+"</a>")
+    })
+  }
+
+  (function () {
+    var $titulo = $('#tituloEvento')
+    var $link = $('#linkEvento')
+    var _listFotos = []
+    $('.btn-nav-novoevento').addClass('active')
+    var slyOptions = {
+      horizontal: 1,       itemNav: 'centered',
+      smart: 1,            activateMiddle: 1,
+      activateOn: 'click', mouseDragging: 1,
+      touchDragging: 1,    releaseSwing: 0,
+      startAt: 0,          scrollBy: 1,
+      speed: 100,          elasticBounds: 1,
+      easing: 'linear',    dragHandle: 1,
+      dynamicHandle: 1,
+    }
+    var frame = new Sly('.fotos-insta', slyOptions,{
+      active: function (e, i) {
+        elem = _listFotos[i]
+        form.descricao.value = elem.caption ? elem.caption.text : ""
+        form.imagem.value = elem.images.standard_resolution.url
+
+        ativaLocalizacao(elem.location)
+      }
+    })
+
+    $titulo.on('keyup', function () {
+      var _link = $titulo.val()
+
+      $link.val(gerarLink(_link))
+    })
+
+
+    /* Pegando fotos do instagram */
+    $.ajax({
+      url: "https://api.instagram.com/v1/users/self/media/recent/?access_token="+instaToken
+    }).done(function (res) {
+      _listFotos = res.data
+      mostrarFotos(_listFotos, $('.fotos-insta ul'), function () { frame.init() })
+    }).fail(function (res) {
+      console.log('error', res);
+    })
+  })()
+  </script>
+</body>
+</html>

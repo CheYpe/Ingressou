@@ -15,15 +15,11 @@
       <div class="col-md-10">
         <div class="p-3 card card-secondary mt-4">
           <div class="card-body">
-            <h5 class="mb-1">Dê mais visibilidade ao seu evento</h5>
-            <p class="mb-4">Preencha o formulário corretamente para adicionar seu evento no nosso site.</p>
+            <h5 class="mb-3">Formulário de editar evento</h5>
 
-            <form  action="javascript:salvaEvento()" method="post" name="form">
+            <form  action="javascript:editarEvento()" method="post" name="form">
               <input id="tituloEvento" type="text" name="titulo" placeholder="Titulo do evento" class="form-control form-group" required autocomplete="off">
               <input id="linkEvento" type="text" name="link" placeholder="Link do evento" class="form-control form-group" required disabled>
-
-              <!-- <input id="upLoadImg"type="file" name="" value="" class="form-control form-group d-none">
-              <label for="upLoadImg" class="btn btn-outline-secondary d-block form-group text-truncate">Carrege uma imagem para o evento</label> -->
 
               <div class="row">
                 <div class="col-sm-6">
@@ -68,7 +64,7 @@
               <input type="text" name="imagem" placeholder="Link da imagem do evento" class="form-control form-group" required>
               <input type="text" name="mapa" placeholder="Link do mapa do evento" class="form-control form-group" required>
               <span class="resultErro text-danger d-block text-right"></span>
-              <button type="submit" name="button" class="btn btn-lg btn-primary px-5 d-block ml-auto">Enviar</button>
+              <button type="submit" name="button" class="btn btn-primary px-5 d-block ml-auto">Salvar Alterações</button>
             </form>
           </div>
         </div>
@@ -93,6 +89,8 @@
   <script src="/javascripts/root.js" charset="utf-8"></script>
 
   <script type="text/javascript">
+  var _id = "<%= id %>"
+
   function gerarLink(str) {
     str = str.toLowerCase()
 
@@ -108,7 +106,8 @@
 
     return str
   }
-  function salvaEvento() {
+
+  function editarEvento() {
     var _evento = {
       "titulo":     form.titulo.value,
       "link":       form.link.value,
@@ -117,18 +116,16 @@
       "cidade":     form.cidade.value,
       "localidade": form.localidade.value,
       "imagem":     form.imagem.value,
-      "mapa":       form.mapa.value,
-      "status":     false,
-      "taxa":       0
+      "mapa":       form.mapa.value
     }
 
     $.ajax({
-      url: hostApi+'/evento',
-      method: 'post',
+      url: hostApi+'/evento/'+_id,
+      method: 'put',
       data: JSON.stringify(_evento),
       cache: false
     }).done(function (res) {
-      document.location.href = '/novoevento/'+res.id
+      document.location.href = '/novoevento/'+_id
     }).fail(function (res) {
       console.log("Error", res);
     })
@@ -137,12 +134,30 @@
   (function () {
     var $titulo = $('#tituloEvento')
     var $link = $('#linkEvento')
-    $('.btn-nav-novoevento').addClass('active')
 
     $titulo.on('keyup', function () {
       var _link = $titulo.val()
 
       $link.val(gerarLink(_link))
+    })
+
+    $.ajax({
+      url: hostApi+'/evento/'+_id,
+      method: 'get'
+    }).done(function (res) {
+
+      form.titulo.value = res.titulo
+      form.link.value = res.link
+      form.descricao.value = res.descricao
+      form.uf.value = res.uf
+      form.cidade.value = res.cidade
+      form.localidade.value = res.localidade
+      form.imagem.value = res.imagem
+      form.mapa.value = res.mapa
+
+    }).fail(function (res) {
+      console.log("Error", res.responseJSON);
+      $(".card-body").prepend("<div class='alert alert-warning' role='alert'><strong>Alerta!</strong> Nenhum evento foi encontrado.</div>")
     })
 
   })()

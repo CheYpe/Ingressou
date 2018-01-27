@@ -3,9 +3,9 @@ var http = require('http');
 var router = express.Router();
 
 /* GET evento page. */
-router.get('/[a-z0-9_]+?', function(req, res, next) {
+router.get('/:link', function(req, res, next) {
+  var _link = req.params.link
 
-  var _link = req.path.replace('/','');
   http.get('http://api.ingressou.com/v1/evento/'+_link, (resp) => {
 
     let data = '';
@@ -21,6 +21,7 @@ router.get('/[a-z0-9_]+?', function(req, res, next) {
 
       if(!data.error){
         data.titulo_page = data.titulo + ' - Ingressou'
+        data.url_page = req.headers.host+req.originalUrl
         res.render('evento', data)
       }else{
         res.redirect('/');

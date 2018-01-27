@@ -1,25 +1,57 @@
 var express = require('express');
 var router = express.Router();
+var host = 'http://www.ingressou.com'
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { titulo_page: 'Ingressou - Loja Virtual de Ingressos', imagem: 'http://ingressou.com/images/perfil.jpg' });
+  _data = {
+    titulo_page: 'Ingressou - Loja Virtual de Ingressos',
+    url_page: req.headers.host+req.originalUrl,
+    imagem: 'http://ingressou.com/images/perfil.jpg'
+  }
+  res.render('index', _data);
 });
 
 /* GET contact page. */
 router.get('/contato', function(req, res, next) {
-  res.render('contato', { titulo_page: 'Contato - Ingressou', imagem: 'http://ingressou.com/images/perfil.jpg' });
+  _data = {
+    titulo_page: 'Contato - Ingressou',
+    url_page: req.headers.host+req.originalUrl,
+    imagem: 'http://ingressou.com/images/perfil.jpg'
+  }
+  res.render('contato', _data);
 });
 
 /* GET new event page. */
 router.get('/novoevento', function(req, res, next) {
-  res.render('novoevento', { titulo_page: 'Adicionar Evento - Ingressou', imagem: 'http://ingressou.com/images/perfil.jpg' });
+  _data = {
+    titulo_page: 'Adicionar Evento - Ingressou',
+    url_page: req.headers.host+req.originalUrl,
+    imagem: 'http://ingressou.com/images/perfil.jpg'
+  }
+  res.render('eventoNovo', _data);
 });
 
 /* GET new event page. */
-router.get('/novoevento/[0-9]+?', function(req, res, next) {
-  var _link = req.path.replace('/novoevento/','');
-  res.render('infoevento', { titulo_page: 'Informações do Evento - Ingressou', imagem: 'http://ingressou.com/images/perfil.jpg', link: _link });
+router.get('/novoevento/:id', function(req, res, next) {
+  _data = {
+    titulo_page: 'Adicionar Evento - Ingressou',
+    url_page: req.headers.host+req.originalUrl,
+    imagem: 'http://ingressou.com/images/perfil.jpg',
+    id: req.params.id
+  }
+  res.render('eventoInfo', _data);
+});
+
+/* GET new event page. */
+router.get('/novoevento/:id/editar', function(req, res, next) {
+  _data = {
+    titulo_page: 'Adicionar Evento - Ingressou',
+    url_page: req.headers.host+req.originalUrl,
+    imagem: 'http://ingressou.com/images/perfil.jpg',
+    id: req.params.id
+  }
+  res.render('eventoEditar', _data);
 });
 
 module.exports = router;
