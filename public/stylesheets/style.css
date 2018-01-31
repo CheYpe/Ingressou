@@ -254,6 +254,12 @@ footer {
 #detalhesIngresso .atracoesDia.active {
   display: block;
 }
+#detalhesIngresso .listComprarIngressos li {
+  display: none;
+}
+#detalhesIngresso .listComprarIngressos li.active {
+  display: block;
+}
 
 .border-top-login {
   border-top: 1px solid #ffffff73;

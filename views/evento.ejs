@@ -20,7 +20,7 @@
           <h2 class="mt-5 mb-0"><%= titulo %></h2>
 
           <a class="text-light font-ligh d-block mt-4 mb-0" href="<%= mapa %>" target="_blank"><span class='mdi mdi-map-marker text-warning'></span> <%= localidade %> - <%= cidade %> / <%= uf %></a>
-          <p class="text-light font-ligh"><span class='mdi mdi-clock text-warning'></span> <%= periodos[0].data_periodo.replace(/^[\d]{4}-[\d]{2}-[\d]{2}T/, "").replace(/:[\d]{2}?/, "") %></p>
+          <p class="text-light font-ligh descricaoData"></p>
 
           <div class="mt-4 mb-2 d-block"><%= descricao %></div>
 
@@ -48,10 +48,12 @@
             </div>
 
             <div id="detalhesIngresso">
+              <div class="listAtracoes">
 
+              </div>
               <form class="p-3">
                 <h4>Ingressos dia:</h4>
-                <ul class='m-0 p-0'></ul>
+                <ul class='m-0 p-0 listComprarIngressos' style="list-style: none"></ul>
               </form>
             </div>
           </div>
@@ -147,6 +149,15 @@
   $(function () {
 
     var _periodos = <%- JSON.stringify(periodos) %>
+    var textDescricaoData = "<span class='mdi mdi-clock text-warning'></span> "+moment.utc(_periodos[0]).format('h:mm')+"<br /><span class='mdi mdi-calendar text-warning'></span> "
+
+    if(_periodos.length > 1){
+      var length = _periodos.length
+      textDescricaoData += moment.utc(_periodos[0].data_periodo).format('L') + " - " + moment.utc(_periodos[length-1].data_periodo).format('L')
+    }else{
+      textDescricaoData += moment.utc(_periodos[0].data_periodo).format('L')
+    }
+    $(".descricaoData").append(textDescricaoData)
 
     var $wrap  = $('.slide-date-ingressos').parent()
     var slyOptions = {
@@ -166,18 +177,19 @@
 
     var frame = new Sly('.slide-date-ingressos', slyOptions, {
       active: function (e, i) {
-        console.log($('#detalhesIngresso .atracoesDia'));
-
         $('#detalhesIngresso .atracoesDia.active').removeClass('active')
         $($('#detalhesIngresso .atracoesDia')[i]).addClass('active')
+
+        $('#detalhesIngresso .listComprarIngressos li.active').removeClass('active')
+        $($('#detalhesIngresso .listComprarIngressos li')[i]).addClass('active')
       }
     })
 
 
     _periodos.forEach(function (elem, index, arr) {
       $("#abaData").append(dir.abaDataEvento(elem))
-      $("#detalhesIngresso").prepend(dir.atracoesDia(elem))
-      // $("#detalhesIngresso").append(dir.detalhesIngresso(elem))
+      $("#detalhesIngresso .listAtracoes").append(dir.atracoesDia(elem))
+      $(".listComprarIngressos").append(dir.ingressos(elem.categorias))
 
       if(1+index === arr.length) {
         frame.init()

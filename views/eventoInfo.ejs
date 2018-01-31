@@ -168,7 +168,7 @@
       listP.text("")
 
       p.forEach(function (elem) {
-        $(listP).append("<tr id='p"+elem.id+"' onclick='editPeriodo("+elem.id+")'><a href=''><td class='align-middle'>"+moment.utc(elem.data).format('DD/MM/YYYY - HH:mm')+"</td><td class='align-middle'>"+elem.atracao+"</td><td class='text-right align-middle'><a href='javascript:mostrarModal("+elem.id+")' class='btn btn-sm py-0'>Ingressos</a></td></tr>")
+        $(listP).append("<tr id='p"+elem.id+"' onclick='editPeriodo("+elem.id+")'><a href=''><td class='align-middle'>"+moment.utc(elem.data_periodo).format('DD/MM/YYYY - HH:mm')+"</td><td class='align-middle'>"+elem.atracao+"</td><td class='text-right align-middle'><a href='javascript:mostrarModal("+elem.id+")' class='btn btn-sm py-0'>Ingressos</a></td></tr>")
       })
     }else{
       listP.html("<tr><td colspan='3' class='text-center pNull'>Sem registro</td></tr>")
@@ -197,7 +197,11 @@
       url: hostApi+'/evento/'+evento.id+"/periodo",
       method: 'post',
       data: JSON.stringify(_periodo),
-      cache: false
+      cache: false,
+      crossDomain: true,
+      xhrFields: {
+        withCredentials: true
+      }
     }).done(function (res) {
       _periodo.id = res.id
       _periodo.categorias = null
@@ -219,7 +223,11 @@
     $.ajax({
       url: hostApi+'/evento/'+evento.id+"/periodo/"+id,
       method: 'delete',
-      cache: false
+      cache: false,
+      crossDomain: true,
+      xhrFields: {
+        withCredentials: true
+      }
     }).done(function (res) {
       $("#p"+id).remove()
 
@@ -279,7 +287,11 @@
         url: hostApi+'/periodo/'+formC.pId.value+"/categoria",
         method: 'post',
         data: JSON.stringify(_categoria),
-        cache: false
+        cache: false,
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        }
       }).done(function (res) {
         _categoria.id = res.id
         categorias.push(_categoria)
@@ -295,7 +307,11 @@
         url: hostApi+'/periodo/'+formC.pId.value+"/categoria/"+formC.cId.value,
         method: 'put',
         data: JSON.stringify(_categoria),
-        cache: false
+        cache: false,
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        }
       }).done(function (res) {
         _categoria.id = formC.cId.value
         categorias.forEach(function (elem, i, arr) {
@@ -321,7 +337,11 @@
     $.ajax({
       url: hostApi+'/periodo/'+pId+"/categoria/"+cId,
       method: 'delete',
-      cache: false
+      cache: false,
+      crossDomain: true,
+      xhrFields: {
+        withCredentials: true
+      }
     }).done(function (res) {
       $("#c"+cId).remove()
 
@@ -346,7 +366,11 @@
 
     $.ajax({
       url: hostApi+'/evento/'+_id,
-      method: 'get'
+      method: 'get',
+      crossDomain: true,
+      xhrFields: {
+        withCredentials: true
+      }
     }).done(function (res) {
       evento = res
       periodos = evento.periodos ? evento.periodos : []

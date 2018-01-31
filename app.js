@@ -42,7 +42,13 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error', { titulo_page: 'Error - Ingressou', imagem: 'http://ingressou.com/images/perfil.jpg' });
+
+  _data = {
+    titulo_page: 'Ingressou - Erro',
+    url_page: req.headers.host+req.originalUrl,
+    imagem: 'http://ingressou.com/images/perfil.jpg'
+  }
+  res.render('error', _data);
 });
 
 module.exports = app;
